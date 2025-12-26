@@ -23,7 +23,7 @@ export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
   maximumScale: 5, // Accessibility: allow zooming
-  themeColor: "#FFC221", // Update this to match your 'primary' color
+  themeColor: "#FFC221",
 };
 
 export const metadata: Metadata = {
@@ -57,7 +57,7 @@ export const metadata: Metadata = {
     siteName: "Urban Builders",
     images: [
       {
-        url: "/og-image.jpg", // Ensure this exists in /public
+        url: "/assets/logo.png",
         width: 1200,
         height: 630,
         alt: "Urban Builders Construction Site Excellence",
@@ -70,7 +70,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Urban Builders",
     description: "Premier construction and architectural solutions.",
-    images: ["/og-image.jpg"], // "/images/skyline-builders-x-image.jpg"
+    images: ["/assets/logo.png"],
     creator: "@urbanbuilders",
   },
   robots: {

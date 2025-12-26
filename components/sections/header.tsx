@@ -16,6 +16,7 @@ interface HeaderProps {
 export const Header: React.FC<HeaderProps> = ({ isSticky }) => {
   return (
     <header
+      id="home"
       className={cn("bg-foreground w-full", isSticky ? "py-2" : "py-0")}
       aria-label="Main navigation"
     >

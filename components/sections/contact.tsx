@@ -39,7 +39,7 @@ export const Contact = () => {
               </p>
               <Socials
                 containerStyles="gap-4"
-                iconStyles="size-10 border-border/30 hover:bg-primary/75 hover:text-foreground"
+                iconStyles="size-10 text-foreground border-primary/30 hover:bg-primary/75 hover:text-background"
               />
             </div>
           </div>
