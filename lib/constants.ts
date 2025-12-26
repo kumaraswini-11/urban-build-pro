@@ -138,7 +138,8 @@ export const WorkData = [
   {
     img: "/assets/images/work/restoration.jpg",
     name: "The Heritage Lofts",
-    description: "Multi-million dollar restoration of a 1920s industrial landmark.",
+    description:
+      "Multi-million dollar restoration of a 1920s industrial landmark.",
     href: "#",
   },
   {
@@ -150,13 +151,15 @@ export const WorkData = [
   {
     img: "/assets/images/work/renovation.jpg",
     name: "TechHub Global HQ",
-    description: "Adaptive reuse of warehouse space into high-tech modern offices.",
+    description:
+      "Adaptive reuse of warehouse space into high-tech modern offices.",
     href: "#",
   },
   {
     img: "/assets/images/work/consulting.jpg",
     name: "Harbor Development",
-    description: "Pre-construction consulting and cost analysis for waterfront expansion.",
+    description:
+      "Pre-construction consulting and cost analysis for waterfront expansion.",
     href: "#",
   },
 ] as const;
@@ -189,7 +192,8 @@ export const FAQ = [
       "We maintain a zero-incident safety culture. Every site is governed by OSHA-compliant safety plans and regular third-party audits to ensure total regulatory compliance.",
   },
   {
-    question: "Do you offer Value Engineering (VE) during the pre-construction phase?",
+    question:
+      "Do you offer Value Engineering (VE) during the pre-construction phase?",
     answer:
       "Yes. We analyze blueprints to identify cost-saving alternatives in materials and methods that maintain or enhance the original design intent.",
   },
