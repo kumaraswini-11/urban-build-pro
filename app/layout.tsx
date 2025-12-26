@@ -1,5 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { DM_Sans, Barlow } from "next/font/google";
+
+import { ThemeProvider } from "@/components/theme-provider";
 import "./globals.css";
 
 // Construction branding usually favors high-readability sans-serifs
@@ -96,7 +98,14 @@ export default function RootLayout({
       className="scroll-smooth" // Native smooth scrolling for your nav links
     >
       <body className={`${dmSans.variable} ${barlow.variable} antialiased`}>
-        {children}
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="light"
+          enableSystem
+          disableTransitionOnChange
+        >
+          {children}
+        </ThemeProvider>
       </body>
     </html>
   );
