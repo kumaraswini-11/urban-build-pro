@@ -17,8 +17,8 @@ export const Services = () => {
       <div className="container mx-auto px-4">
         <div className="mx-auto mb-16 max-w-[540px] text-center">
           <Pretitle text="Our Expertise" center />
-          <h2 className="h2 mb-4">Construction Solutions</h2>
-          <p className="text-muted-foreground">
+          <h2 className="h2 text-foreground mb-4">Construction Solutions</h2>
+          <p className="text-foreground">
             Delivering <strong>precision-engineered</strong> results across
             every phase of the build cycle.
           </p>
@@ -35,18 +35,18 @@ export const Services = () => {
                 key={service.name}
                 value={service.name}
                 className={cn(
-                  "relative flex h-24 items-center justify-start border-l-4 px-0 transition-all",
+                  "relative flex h-24 items-center justify-start px-0 transition-all",
                   activeTab === service.name
-                    ? "border-accent bg-white shadow-lg"
-                    : "border-transparent bg-white/50",
+                    ? "border-primary bg-background shadow-lg"
+                    : "bg-background/50 border-border/40",
                 )}
               >
                 <div
                   className={cn(
                     "flex size-24 items-center justify-center transition-colors",
                     activeTab === service.name
-                      ? "bg-primary text-white"
-                      : "bg-accent/20 text-primary",
+                      ? "bg-primary text-foreground"
+                      : "bg-primary/20 text-primary",
                   )}
                 >
                   <service.icon className="text-3xl" />
@@ -58,7 +58,7 @@ export const Services = () => {
             ))}
           </TabsList>
 
-          <div className="flex-1 rounded-sm bg-white p-8 shadow-xl md:p-12">
+          <div className="bg-background flex-1 rounded-sm p-8 shadow-xl md:p-12">
             {services.map((service) => (
               <TabsContent
                 key={service.name}
@@ -70,7 +70,10 @@ export const Services = () => {
                     {service.images.slice(0, 2).map((image, idx) => (
                       <div
                         key={idx}
-                        className="relative aspect-square w-full max-w-[180px] overflow-hidden rounded-sm grayscale transition-all duration-500 hover:grayscale-0"
+                        className={cn(
+                          "relative aspect-square h-[140px] w-[140px] overflow-hidden rounded-sm xl:h-[200px] xl:w-[200px]",
+                          "grayscale transition-all duration-500 hover:grayscale-0",
+                        )}
                       >
                         <Image
                           src={image.url}
@@ -90,9 +93,9 @@ export const Services = () => {
                       {service.serviceList.map((item, i) => (
                         <li
                           key={i}
-                          className="text-primary/70 flex items-center gap-3 text-sm font-semibold"
+                          className="text-foreground/70 flex items-center gap-3 text-sm font-semibold"
                         >
-                          <div className="bg-accent size-1.5 rotate-45" />{" "}
+                          <div className="bg-primary size-1.5 rotate-45" />{" "}
                           {item}
                         </li>
                       ))}

@@ -13,7 +13,6 @@ import { Textarea } from "@/components/ui/textarea";
 
 export const ContactForm = () => {
   async function handleSubmit(formData: FormData) {
-    // Logic for React 19 Server Actions goes here
     const data = Object.fromEntries(formData);
     console.log("Form Submitted:", data);
   }
@@ -25,14 +24,14 @@ export const ContactForm = () => {
           name="name"
           placeholder="Full Name"
           required
-          className="focus:border-accent h-14 rounded-none border-slate-200"
+          className="focus:border-primary text-foreground border-border h-14 rounded-none"
         />
         <Input
           name="email"
           type="email"
           placeholder="Email Address"
           required
-          className="focus:border-accent h-14 rounded-none border-slate-200"
+          className="focus:border-primary text-foreground border-border h-14 rounded-none"
         />
       </div>
 
@@ -40,13 +39,13 @@ export const ContactForm = () => {
         <Input
           name="phone"
           placeholder="Phone Number"
-          className="focus:border-accent h-14 rounded-none border-slate-200"
+          className="focus:border-primary text-foreground border-border h-14 rounded-none"
         />
         <Select name="service">
-          <SelectTrigger className="h-14 rounded-none border-slate-200">
+          <SelectTrigger className="focus:border-primary text-foreground border-border min-h-14 w-full rounded-none">
             <SelectValue placeholder="Project Type" />
           </SelectTrigger>
-          <SelectContent>
+          <SelectContent className="w-full">
             <SelectItem value="residential">Residential Build</SelectItem>
             <SelectItem value="commercial">Commercial Development</SelectItem>
             <SelectItem value="renovation">Renovation & Retrofit</SelectItem>
@@ -58,7 +57,7 @@ export const ContactForm = () => {
       <Textarea
         name="message"
         placeholder="Tell us about your project..."
-        className="focus:border-accent min-h-[150px] resize-none rounded-none border-slate-200"
+        className="focus:border-primary text-foreground border-border min-h-[150px] resize-none rounded-none"
         required
       />
 

@@ -6,6 +6,7 @@ import { RiPhoneFill, RiMailFill } from "react-icons/ri";
 
 import { Socials } from "@/components/socials";
 import { CONTACT_INFO } from "@/lib/constants";
+import { cn } from "@/lib/utils";
 
 const ContactLink = ({
   icon: Icon,
@@ -16,23 +17,25 @@ const ContactLink = ({
   text: string;
   href: string;
 }) => (
-  <div className="group flex items-center gap-3">
-    <div className="bg-primary flex size-8 items-center justify-center rounded-sm text-white transition-transform group-hover:scale-110">
+  <Link
+    href={href}
+    className="group focus-visible:ring-ring flex items-center gap-3 rounded-md focus-visible:ring-2 focus-visible:outline-none"
+  >
+    <div className="bg-foreground hover:bg-foreground/90 text-background flex size-8 items-center justify-center rounded-md transition-colors">
       <Icon className="size-4" />
     </div>
-    <Link
-      href={href}
-      className="text-primary text-sm font-bold tracking-tight hover:underline"
-    >
+    <span className="text-foreground text-sm font-medium tracking-tight hover:underline">
       {text}
-    </Link>
-  </div>
+    </span>
+  </Link>
 );
 
 export const Topbar = () => {
   return (
     <section
-      className="from-accent to-accent/80 flex w-full items-center bg-linear-to-t py-3 xl:h-12 xl:py-0"
+      className={cn(
+        "from-primary to-primary/80 flex w-full items-center bg-linear-to-t py-3 xl:h-12 xl:py-0",
+      )}
       aria-label="Contact information and social media"
     >
       <div className="container mx-auto px-4">
@@ -53,8 +56,8 @@ export const Topbar = () => {
 
           {/* Socials - Using the shared component with specialized styles */}
           <Socials
-            containerStyles="gap-3 mx-auto xl:m-0"
-            iconStyles="text-primary border-primary/20 hover:border-primary hover:bg-primary hover:text-white size-8"
+            containerStyles="gap-3 mx-auto xl:mx-0"
+            iconStyles="text-foreground border border-foreground/20 hover:border-foreground hover:bg-foreground hover:text-background size-8 rounded-md transition-all"
           />
         </div>
       </div>

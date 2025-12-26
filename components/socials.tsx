@@ -13,14 +13,20 @@ export const Socials = ({ containerStyles, iconStyles }: SocialsProps) => {
           href={social.path}
           target="_blank"
           rel="noopener noreferrer"
-          aria-label={social.ariaLabel}
+          aria-label={social.ariaLabel || social.name}
           className={cn(
-            "group hover:border-accent hover:bg-accent relative flex size-10 items-center justify-center rounded-sm border border-white/10 transition-all duration-300",
+            "group border-border relative flex size-10 items-center justify-center rounded-md border bg-transparent transition-all duration-300",
+            "hover:border-accent hover:bg-accent hover:text-accent-foreground",
+            "focus-visible:ring-ring focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none",
             iconStyles,
           )}
         >
-          <social.icon className="group-hover:text-primary size-5 transition-colors" />
-          {/* Tooltip for desktop accessibility */}
+          <social.icon
+            className={cn(
+              "size-5 text-inherit transition-colors",
+              "group-hover:text-accent",
+            )}
+          />
           <span className="sr-only">{social.name}</span>
         </Link>
       ))}

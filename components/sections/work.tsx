@@ -6,6 +6,7 @@ import Link from "next/link";
 import { RiCheckboxCircleFill, RiArrowRightUpLine } from "react-icons/ri";
 
 import { Pretitle } from "@/components/pretitle";
+import { buttonVariants } from "@/components/ui/button";
 import { WorkData } from "@/lib/constants";
 
 export const Work = () => {
@@ -14,7 +15,9 @@ export const Work = () => {
       <div className="container mx-auto px-4">
         <div className="mx-auto mb-16 max-w-[540px] text-center xl:mb-20">
           <Pretitle text="Our Portfolio" center />
-          <h2 className="h2 mb-4">Crafting Iconic Structures</h2>
+          <h2 className="h2 text-foreground mb-4">
+            Crafting Iconic Structures
+          </h2>
           <p className="text-muted-foreground">
             From industrial hubs to luxury residences, explore the precision and
             scale of our recent construction projects.
@@ -39,22 +42,23 @@ export const Work = () => {
               />
 
               {/* Hover Overlay Content */}
-              <div className="bg-primary absolute inset-x-4 bottom-4 translate-y-[110%] p-6 text-white transition-transform duration-500 group-hover:translate-y-0">
-                <div className="flex items-center justify-between">
+              <div className="bg-background text-foreground absolute inset-x-4 bottom-4 translate-y-[110%] p-6 transition-transform duration-500 group-hover:translate-y-0">
+                <div className="flex items-center justify-between gap-1">
                   <div>
                     <h3 className="font-barlow text-xl font-bold tracking-wider uppercase">
                       {project.name}
                     </h3>
-                    <div className="text-accent mt-2 flex items-center gap-2 text-sm">
+                    <div className="text-foreground mt-2 flex items-center gap-2 text-sm">
                       <RiCheckboxCircleFill />
-                      <span className="text-white/80">
+                      <span className="text-foreground/80">
                         {project.description}
                       </span>
                     </div>
                   </div>
                   <Link
                     href={project.href}
-                    className="bg-accent text-primary flex size-12 items-center justify-center transition-colors hover:bg-white"
+                    className={buttonVariants({ variant: "default" })}
+                    // className="bg-foreground text-background flex size-12 items-center justify-center transition-colors hover:bg-white"
                     aria-label={`View ${project.name}`}
                   >
                     <RiArrowRightUpLine className="text-2xl" />

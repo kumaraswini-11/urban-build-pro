@@ -26,12 +26,12 @@ export const Hero = () => {
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, ease: "easeOut" }}
           >
-            <h1 className="text-5xl leading-[1.1] font-extrabold text-white md:text-7xl lg:text-8xl">
-              <span className="text-accent">Building</span> robust, lasting
+            <h1 className="text-background text-2xl leading-[1.1] font-extrabold uppercase md:text-4xl lg:text-6xl">
+              <span className="text-primary">Building</span> robust, lasting
               solutions
             </h1>
 
-            <p className="mt-6 mb-10 max-w-135 text-lg leading-relaxed text-white/80 md:text-xl">
+            <p className="text-background/80 mt-6 mb-10 max-w-140 text-lg leading-relaxed md:text-xl">
               From initial concept to final completion, we meticulously optimize
               every detail for strength and longevity, crafting solutions that
               instill confidence.
@@ -52,7 +52,7 @@ export const Hero = () => {
       </div>
 
       {/* Visual Decoration: Industrial Accent Line */}
-      <div className="bg-accent absolute bottom-0 left-0 z-20 h-2 w-full md:w-1/3" />
+      <div className="bg-primary absolute bottom-0 left-0 z-20 h-2 w-full md:w-1/3" />
     </section>
   );
 };

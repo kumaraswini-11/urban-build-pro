@@ -21,7 +21,7 @@ export const About = () => {
           >
             <div className="mx-auto max-w-2xl xl:mx-0">
               <Pretitle text="About our firm" />
-              <h2 className="h2 mb-6">
+              <h2 className="h2 text-foreground mb-6">
                 Focused on Excellence In Every Project
               </h2>
               <p className="text-muted-foreground mb-10 text-lg leading-relaxed">
@@ -31,7 +31,7 @@ export const About = () => {
               </p>
 
               {/* CEO Signature Block */}
-              <div className="mb-10 flex flex-col items-start gap-3">
+              <div className="mb-10 flex flex-col items-end gap-3">
                 <Image
                   src="/assets/images/about/signature.svg"
                   width={154}
@@ -40,8 +40,8 @@ export const About = () => {
                   className="object-contain dark:invert"
                 />
                 <div className="flex items-center gap-3">
-                  <div className="bg-accent h-px w-8" />
-                  <p className="text-primary/60 text-sm font-bold tracking-widest uppercase">
+                  <div className="bg-primary h-px w-8" />
+                  <p className="text-foreground/60 text-sm font-bold tracking-widest uppercase">
                     Company CEO
                   </p>
                 </div>
@@ -68,8 +68,8 @@ export const About = () => {
           >
             <div className="relative aspect-444/492 w-full max-w-[480px]">
               {/* Decorative Background Frame */}
-              <div className="border-accent/20 absolute -top-6 -left-6 -z-10 hidden h-full w-full rounded-sm border-2 xl:block" />
-              <div className="bg-accent absolute -right-4 -bottom-4 -z-10 hidden h-32 w-32 xl:block" />
+              <div className="border-primary/20 absolute -top-6 -left-6 -z-10 hidden h-full w-full rounded-sm border-2 xl:block" />
+              <div className="bg-primary absolute -right-4 -bottom-4 -z-10 hidden h-32 w-32 xl:block" />
 
               <div className="relative h-full w-full overflow-hidden rounded-sm shadow-2xl">
                 <Image

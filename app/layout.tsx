@@ -6,17 +6,17 @@ import "./globals.css";
 
 // Construction branding usually favors high-readability sans-serifs
 const dmSans = DM_Sans({
-  variable: "--font-dm-sans", // Standardized naming
+  variable: "--font-dm-sans",
   subsets: ["latin"],
   display: "swap", // Better performance
-  weight: ["400", "500", "700"], // Optimized: only load what you use
+  weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
 });
 
 const barlow = Barlow({
   variable: "--font-barlow",
   subsets: ["latin"],
   display: "swap",
-  weight: ["400", "500", "600", "700", "800"],
+  weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
 });
 
 export const viewport: Viewport = {
@@ -70,7 +70,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Urban Builders",
     description: "Premier construction and architectural solutions.",
-    images: ["/og-image.jpg"],
+    images: ["/og-image.jpg"], // "/images/skyline-builders-x-image.jpg"
     creator: "@urbanbuilders",
   },
   robots: {
