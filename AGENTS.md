@@ -37,6 +37,7 @@ Run typecheck, lint, test and test:e2e before every commit. Run test:visual for 
 - **Branches:**
   - work on `modernize/<phase>` branches cut from `modernize/integration`;
   - each phase ends with a PR **into `modernize/integration`**, opened and merged by the product owner (D-006); prepare the branch, PR description and evidence, then wait;
+  - requests made during a phase (docs tweaks, small fixes) go on the **current phase branch** as their own commit, never on a new branch;
   - **never push, or commit/merge to `main`**: the product owner does that after review.
 - **Commits:** one logical change per commit, using Conventional Commits (`feat:`, `fix:`, `chore(deps):`, `refactor:`, `test:`, `docs:`). Reference finding IDs.
 - **Known defects:** they are encoded as `test.fail()` in `tests/e2e`. When a fix makes one pass, remove the marker in the same change.

@@ -60,6 +60,7 @@ Format: **ID — title** · date · status · who decided, followed by the decis
 
 - **Integration branch:** `modernize/integration`, created from `main`.
 - **Phase branches:** one per roadmap phase (`modernize/m1-security`, `modernize/m1b-tooling`, …), each cut from the latest `modernize/integration`.
+- **Scope rule:** any task the product owner asks for while a phase is in progress belongs to **that phase branch** (as its own commit). Do not open a separate branch or PR for small in-phase requests.
 - **Pull requests:** each phase branch gets a PR **targeting `modernize/integration`** (merge commit, not squash). The product owner opens and merges these PRs; the assistant prepares the branch, the PR description and the verification evidence, then waits. The next phase starts from the updated integration branch.
 - **Final review:** PR #1 (`modernize/integration` → `main`) stays open as the cumulative review and is merged by the product owner when every phase is done.
 - _History:_ M0 and M0b were merged into the integration branch locally before this PR flow was set up. They arrive in `main` through PR #1.
