@@ -1,17 +1,17 @@
 import {
-  PiWallFill,
   PiPaintRollerFill,
-  PiWrenchFill,
   PiUserGearFill,
+  PiWallFill,
+  PiWrenchFill,
 } from "react-icons/pi";
 import {
   RiFacebookFill,
-  RiYoutubeFill,
-  RiTwitterXFill,
   RiInstagramFill,
+  RiTwitterXFill,
+  RiYoutubeFill,
 } from "react-icons/ri";
 
-import { NavLink, Service, SocialLink, Statistic } from "@/lib/types";
+import type { NavLink, Service, SocialLink, Statistic } from "@/lib/types";
 
 export const SOCIAL_LINKS: SocialLink[] = [
   {
@@ -44,7 +44,7 @@ export const navLinks: NavLink[] = [
   { id: "home", label: "Home", path: "home" },
   { id: "about", label: "About Us", path: "about" },
   { id: "services", label: "Services", path: "services" },
-  { id: "projects", label: "Portfolio", path: "projects" },
+  { id: "work", label: "Portfolio", path: "work" },
   { id: "contact", label: "Contact", path: "contact" },
 ] as const;
 
@@ -140,27 +140,23 @@ export const WorkData = [
     name: "The Heritage Lofts",
     description:
       "Multi-million dollar restoration of a 1920s industrial landmark.",
-    href: "#",
   },
   {
     img: "/assets/images/work/construction.jpg",
     name: "Skyline Corporate Center",
     description: "A 20-story LEED Platinum certified commercial office tower.",
-    href: "#",
   },
   {
     img: "/assets/images/work/renovation.jpg",
     name: "TechHub Global HQ",
     description:
       "Adaptive reuse of warehouse space into high-tech modern offices.",
-    href: "#",
   },
   {
     img: "/assets/images/work/consulting.jpg",
     name: "Harbor Development",
     description:
       "Pre-construction consulting and cost analysis for waterfront expansion.",
-    href: "#",
   },
 ] as const;
 
@@ -181,8 +177,11 @@ export const testimonials = [
 
 export const CONTACT_INFO = {
   phone: "+1 (212) 555-8900",
+  phoneHref: "tel:+12125558900",
   email: "inquiries@urbanbuild.com",
   address: "750 Lexington Avenue, New York, NY 10022",
+  mapHref:
+    "https://www.google.com/maps/search/?api=1&query=750+Lexington+Avenue+New+York+NY+10022",
 };
 
 export const FAQ = [

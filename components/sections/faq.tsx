@@ -1,38 +1,22 @@
-"use client";
-
-import { motion } from "motion/react";
-
-import { FaqItem } from "@/components/faq-item";
 import { Pretitle } from "@/components/pretitle";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 import { FAQ } from "@/lib/constants";
+import { SECTION_IDS } from "@/lib/section-ids";
 
-const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.1, // Staggers the animation of each FaqItem
-    },
-  },
-};
-
-const itemVariants = {
-  hidden: { opacity: 0, y: 20 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.5, ease: [0.33, 1, 0.68, 1] as const }, // as const tells TypeScript to treat this as a tuple (fixed-length array with specific types) rather than a generic number[] array
-  },
-};
-
+// Radix Accordion: wrapping questions (fixes mobile overflow, U6), proper
+// button/region semantics and keyboard support (A9).
 export const Faq = () => {
   return (
-    <section id="faq" className="bg-background py-16 xl:py-32">
+    <section id={SECTION_IDS.faq} className="bg-background py-16 xl:py-32">
       <div className="container mx-auto px-4">
-        {/* Header Text */}
         <div className="mx-auto mb-12 max-w-[540px] text-center xl:mb-20">
           <Pretitle text="Common Questions" center />
-          <h2 className="h2 text-foreground mb-4">
+          <h2 className="h2 mb-4 text-foreground">
             Got Questions? We&apos;ve Got You Covered
           </h2>
           <p className="text-muted-foreground">
@@ -41,26 +25,26 @@ export const Faq = () => {
           </p>
         </div>
 
-        {/* FAQ List */}
-        <motion.div
-          className="mx-auto max-w-4xl"
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-100px" }}
+        <Accordion
+          type="single"
+          collapsible
+          className="mx-auto max-w-4xl border-border border-t"
         >
-          <ul className="border-border/30 flex flex-col border-t">
-            {FAQ.map((item, index) => (
-              <motion.li
-                key={index}
-                variants={itemVariants}
-                className="border-border/30 border-b"
-              >
-                <FaqItem title={item.question} description={item.answer} />
-              </motion.li>
-            ))}
-          </ul>
-        </motion.div>
+          {FAQ.map((item) => (
+            <AccordionItem
+              key={item.question}
+              value={item.question}
+              className="border-border border-b"
+            >
+              <AccordionTrigger className="py-6 text-left font-bold text-foreground text-lg uppercase tracking-tight hover:no-underline">
+                {item.question}
+              </AccordionTrigger>
+              <AccordionContent className="max-w-[90%] text-base text-muted-foreground leading-relaxed">
+                {item.answer}
+              </AccordionContent>
+            </AccordionItem>
+          ))}
+        </Accordion>
       </div>
     </section>
   );

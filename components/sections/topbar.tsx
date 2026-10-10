@@ -1,8 +1,6 @@
-"use client";
-
 import Link from "next/link";
-import { IconType } from "react-icons";
-import { RiPhoneFill, RiMailFill } from "react-icons/ri";
+import type { IconType } from "react-icons";
+import { RiMailFill, RiPhoneFill } from "react-icons/ri";
 
 import { Socials } from "@/components/socials";
 import { CONTACT_INFO } from "@/lib/constants";
@@ -19,12 +17,12 @@ const ContactLink = ({
 }) => (
   <Link
     href={href}
-    className="group focus-visible:ring-ring flex items-center gap-3 rounded-md focus-visible:ring-2 focus-visible:outline-none"
+    className="group flex items-center gap-3 rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inverse"
   >
-    <div className="bg-foreground hover:bg-foreground/90 text-background flex size-8 items-center justify-center rounded-md transition-colors">
+    <div className="flex size-8 items-center justify-center rounded-md bg-inverse text-on-inverse transition-colors hover:bg-inverse/90">
       <Icon className="size-4" />
     </div>
-    <span className="text-foreground text-sm font-medium tracking-tight hover:underline">
+    <span className="font-medium text-inverse text-sm tracking-tight hover:underline">
       {text}
     </span>
   </Link>
@@ -34,7 +32,7 @@ export const Topbar = () => {
   return (
     <section
       className={cn(
-        "from-primary to-primary/80 flex w-full items-center bg-linear-to-t py-3 xl:h-12 xl:py-0",
+        "flex w-full items-center bg-linear-to-t from-primary to-primary/80 py-3 xl:h-12 xl:py-0",
       )}
       aria-label="Contact information and social media"
     >
@@ -45,7 +43,7 @@ export const Topbar = () => {
             <ContactLink
               icon={RiPhoneFill}
               text={CONTACT_INFO.phone}
-              href={`tel:${CONTACT_INFO.phone}`}
+              href={CONTACT_INFO.phoneHref}
             />
             <ContactLink
               icon={RiMailFill}
@@ -57,7 +55,7 @@ export const Topbar = () => {
           {/* Socials - Using the shared component with specialized styles */}
           <Socials
             containerStyles="gap-3 mx-auto xl:mx-0"
-            iconStyles="text-foreground border border-foreground/20 hover:border-foreground hover:bg-foreground hover:text-background size-8 rounded-md transition-all"
+            iconStyles="text-inverse border border-inverse/20 hover:border-inverse hover:bg-inverse hover:text-on-inverse size-8 rounded-md transition-all"
           />
         </div>
       </div>

@@ -5,7 +5,7 @@ import { useState } from "react";
 
 import { ConstructionButton } from "@/components/construction-button";
 import { Pretitle } from "@/components/pretitle";
-import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { services } from "@/lib/constants";
 import { cn } from "@/lib/utils";
 
@@ -13,11 +13,11 @@ export const Services = () => {
   const [activeTab, setActiveTab] = useState(services[0]?.name);
 
   return (
-    <section id="services" className="bg-slate-50/50 py-16 xl:py-32">
+    <section id="services" className="bg-muted/50 py-16 xl:py-32">
       <div className="container mx-auto px-4">
         <div className="mx-auto mb-16 max-w-[540px] text-center">
           <Pretitle text="Our Expertise" center />
-          <h2 className="h2 text-foreground mb-4">Construction Solutions</h2>
+          <h2 className="h2 mb-4 text-foreground">Construction Solutions</h2>
           <p className="text-foreground">
             Delivering <strong>precision-engineered</strong> results across
             every phase of the build cycle.
@@ -27,9 +27,9 @@ export const Services = () => {
         <Tabs
           defaultValue={services[0]?.name}
           onValueChange={setActiveTab}
-          className="flex flex-col gap-10 xl:flex-row"
+          className="flex flex-col gap-10 xl:flex-row xl:data-[orientation=horizontal]:flex-row"
         >
-          <TabsList className="grid h-full w-full grid-cols-1 gap-4 bg-transparent p-0 md:grid-cols-2 xl:w-[350px] xl:grid-cols-1">
+          <TabsList className="grid h-full w-full grid-cols-1 gap-4 bg-transparent p-0 group-data-[orientation=horizontal]/tabs:h-auto md:grid-cols-2 xl:w-[350px] xl:grid-cols-1">
             {services.map((service) => (
               <TabsTrigger
                 key={service.name}
@@ -38,27 +38,27 @@ export const Services = () => {
                   "relative flex h-24 items-center justify-start px-0 transition-all",
                   activeTab === service.name
                     ? "border-primary bg-background shadow-lg"
-                    : "bg-background/50 border-border/40",
+                    : "border-border/40 bg-background/50",
                 )}
               >
                 <div
                   className={cn(
                     "flex size-24 items-center justify-center transition-colors",
                     activeTab === service.name
-                      ? "bg-primary text-foreground"
+                      ? "bg-primary text-inverse"
                       : "bg-primary/20 text-primary",
                   )}
                 >
-                  <service.icon className="text-3xl" />
+                  <service.icon className="size-8" />
                 </div>
-                <span className="ml-6 text-xs font-bold tracking-widest uppercase">
+                <span className="ml-6 font-bold text-xs uppercase tracking-widest">
                   {service.name}
                 </span>
               </TabsTrigger>
             ))}
           </TabsList>
 
-          <div className="bg-background flex-1 rounded-sm p-8 shadow-xl md:p-12">
+          <div className="flex-1 rounded-sm bg-background p-8 shadow-xl md:p-12">
             {services.map((service) => (
               <TabsContent
                 key={service.name}
@@ -67,9 +67,9 @@ export const Services = () => {
               >
                 <div className="flex flex-col gap-10 lg:flex-row">
                   <div className="flex flex-row gap-4 lg:flex-col">
-                    {service.images.slice(0, 2).map((image, idx) => (
+                    {service.images.slice(0, 2).map((image) => (
                       <div
-                        key={idx}
+                        key={image.url}
                         className={cn(
                           "relative aspect-square h-[140px] w-[140px] overflow-hidden rounded-sm xl:h-[200px] xl:w-[200px]",
                           "grayscale transition-all duration-500 hover:grayscale-0",
@@ -78,6 +78,7 @@ export const Services = () => {
                         <Image
                           src={image.url}
                           fill
+                          sizes="(min-width: 1280px) 200px, 140px"
                           alt={service.name}
                           className="object-cover"
                         />
@@ -86,21 +87,24 @@ export const Services = () => {
                   </div>
                   <div className="flex-1">
                     <h3 className="h3 mb-6">{service.title}</h3>
-                    <p className="text-muted-foreground mb-8 leading-relaxed">
+                    <p className="mb-8 text-muted-foreground leading-relaxed">
                       {service.description}
                     </p>
                     <ul className="mb-10 grid grid-cols-1 gap-x-6 gap-y-3 md:grid-cols-2">
-                      {service.serviceList.map((item, i) => (
+                      {service.serviceList.map((item) => (
                         <li
-                          key={i}
-                          className="text-foreground/70 flex items-center gap-3 text-sm font-semibold"
+                          key={item}
+                          className="flex items-center gap-3 font-semibold text-foreground/70 text-sm"
                         >
-                          <div className="bg-primary size-1.5 rotate-45" />{" "}
+                          <div className="size-1.5 rotate-45 bg-primary" />{" "}
                           {item}
                         </li>
                       ))}
                     </ul>
-                    <ConstructionButton label="Service Details" />
+                    <ConstructionButton
+                      href="#contact"
+                      label="Request a quote"
+                    />
                   </div>
                 </div>
               </TabsContent>
