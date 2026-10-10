@@ -142,7 +142,7 @@ Strategy: **hybrid in-place modernization** ([MODERNIZATION_DECISION](MODERNIZAT
 
 1. Move `lib/constants.ts` into `content/*` with zod schemas parsed at build. Use one naming convention. Add a brand-name constant.
 2. Real OG image (1200×630). Consistent brand name and alt texts. JSON-LD (`GeneralContractor`) once the content is real.
-3. Remove `sonner` + `ui/sonner.tsx` and unused tokens (`sidebar-*`, `chart-*`). Replace raw palette colours with tokens. **Dark mode (D-003):** fix `.dark` tokens, add `surface-inverse`/`on-inverse`, ship an accessible theme toggle, and run axe + visual baselines in both themes.
+3. Remove `sonner` + `ui/sonner.tsx` and unused tokens (`sidebar-*`, `chart-*`). Replace raw palette colours with tokens. **Dark mode (D-003):** fix `.dark` tokens, add `surface-inverse`/`on-inverse`, ship an accessible theme toggle, and run axe in both themes and review screenshots manually.
 4. Rewrite the README (bun, Next 16, setup, scripts, env, architecture link). Add a LICENSE (confirm with the client). Real screenshot. Package name `urban-build-pro`.
 5. Lint `components/ui/**` (remove the ignore). Fix the findings.
 6. Placeholder content checklist handed to the client (phone, socials, CEO name and signature, testimonials, project links).

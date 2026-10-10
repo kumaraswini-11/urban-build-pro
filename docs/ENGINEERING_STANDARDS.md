@@ -132,7 +132,7 @@ Rules:
 | Component     | Vitest + RTL (jsdom)                                                             | interactive islands: mobile nav, accordion, carousel pause, quote form states                                                  |
 | E2E           | Playwright                                                                       | navigation (every link reaches its section), lead submission (success, validation, no-JS), responsive overflow at 320/390, 404 |
 | Accessibility | @axe-core/playwright                                                             | every section at 390 and 1440, 0 serious or critical                                                                           |
-| Visual        | Playwright `toHaveScreenshot`                                                    | sections at 390, 768 and 1440                                                                                                  |
+| Visual        | Manual review (screenshot tests removed, D-013)                                  | review UI changes at 390, 768 and 1440 before each phase PR                                                                    |
 | Security      | `bun audit`                                                                      | fail on runtime high or critical                                                                                               |
 | Build         | `next build` **without `.env`**                                                  | every PR                                                                                                                       |
 

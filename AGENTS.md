@@ -26,8 +26,6 @@ bun run lint:fix                # apply Biome fixes: formatting, import sorting,
 bun run format:check            # Biome formatting only (already part of lint)
 bun run test                    # Vitest unit/component tests
 bun run test:e2e                # Playwright e2e + axe (builds and serves on :3100)
-bun run test:visual             # screenshot baselines, local only (platform-specific)
-bun run test:visual:update      # re-baseline after an intentional visual change
 bun run build
 ```
 
@@ -37,7 +35,6 @@ bun run build
 2. **Automated checks:**
    - always: `typecheck`, `lint`, `format:check` and `test`;
    - code or config changes: also `test:e2e`;
-   - anything that can affect rendering: also `test:visual`;
    - dependency changes: also `bun audit`, before and after.
 3. **Review the staged diff line by line.** Look for:
    - correctness and regressions;
@@ -76,7 +73,6 @@ bun run build
 - **Local binaries:** run them with `bunx <bin>` or `bun run <script>`, never `npx`. On this machine npm cannot see bun's shims, so `npx <name>` silently downloads and runs an unrelated registry package with that name (this happened with `tsc` and `biome`).
 - **Staging:** the editor may pre-stage files. Before each commit, run `git diff --cached --stat`, or `git reset` and then add explicit paths, so a commit contains only its own change.
 - **Windows / line endings:** this repo is developed on Windows with `core.autocrlf=true`. Keep LF in the repo.
-- **Visual snapshots** are platform-suffixed (`-win32.png`). CI does not run them.
 - **Build-time env:** `NEXT_PUBLIC_*` values are inlined at build time.
 - **Mobile tests:** use a plain narrow viewport. `isMobile` emulation hides horizontal overflow.
 
