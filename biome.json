@@ -35,31 +35,43 @@
     }
   },
   "css": {
-    "parser": { "tailwindDirectives": true },
-    "formatter": { "enabled": true },
-    "linter": { "enabled": true }
+    "parser": {
+      "tailwindDirectives": true
+    },
+    "formatter": {
+      "enabled": true
+    },
+    "linter": {
+      "enabled": true
+    }
   },
   "linter": {
     "enabled": true,
     "domains": {
       "next": "none",
       "react": "recommended",
-      "test": "recommended"
+      "test": "recommended",
+      "playwright": "recommended"
     },
     "rules": {
-      "recommended": true,
+      "preset": "recommended",
       "correctness": {
         "useExhaustiveDependencies": "off",
         "useHookAtTopLevel": "off"
       },
       "style": {
-        "useImportType": { "level": "error", "fix": "safe" }
+        "useImportType": {
+          "level": "error",
+          "fix": "safe"
+        }
       },
       "nursery": {
         "useSortedClasses": {
           "level": "warn",
           "fix": "safe",
-          "options": { "functions": ["cn", "cva", "clsx"] }
+          "options": {
+            "functions": ["cn", "cva", "clsx"]
+          }
         }
       }
     }
@@ -86,8 +98,12 @@
   "overrides": [
     {
       "includes": ["components/ui/**"],
-      "linter": { "enabled": false },
-      "assist": { "enabled": false }
+      "linter": {
+        "enabled": false
+      },
+      "assist": {
+        "enabled": false
+      }
     }
   ]
 }
