@@ -30,7 +30,21 @@ bun run test:visual:update      # re-baseline after an intentional visual change
 bun run build
 ```
 
-Run typecheck, lint, test and test:e2e before every commit. Run test:visual for any UI change.
+### Pre-commit audit (every commit, no exceptions)
+
+1. **Scope:** `git diff --cached --stat` lists only the files this commit is meant to touch. Editors may pre-stage files, so `git reset` and add explicit paths if needed.
+2. **Automated checks:**
+   - always: `typecheck`, `lint`, `format:check` and `test`;
+   - code or config changes: also `test:e2e`;
+   - anything that can affect rendering: also `test:visual`;
+   - dependency changes: also `bun audit`, before and after.
+3. **Review the staged diff line by line.** Look for:
+   - correctness and regressions;
+   - scope creep, i.e. changes the commit message doesn't describe;
+   - secrets;
+   - commit ordering, i.e. whether this commit breaks CI on its own.
+4. **Independent review for non-trivial commits** (code, config, dependencies, generated or bulk edits): a separate reviewer or agent audits the diff, and blockers and should-fix findings are resolved before committing. Docs-only commits need steps 1–3.
+5. **Record it:** list the checks you ran in the commit body or PR description.
 
 ## Workflow rules
 
@@ -57,6 +71,7 @@ Run typecheck, lint, test and test:e2e before every commit. Run test:visual for 
 
 ## Gotchas
 
+- **Local binaries:** run them with `bunx <bin>` or `bun run <script>`, never `npx`. On this machine npm cannot see bun's shims, so `npx <name>` silently downloads and runs an unrelated registry package with that name (this happened with `tsc` and `biome`).
 - **Staging:** the editor may pre-stage files. Before each commit, run `git diff --cached --stat`, or `git reset` and then add explicit paths, so a commit contains only its own change.
 - **Windows / line endings:** this repo is developed on Windows with `core.autocrlf=true`. Keep LF in the repo.
 - **Visual snapshots** are platform-suffixed (`-win32.png`). CI does not run them.

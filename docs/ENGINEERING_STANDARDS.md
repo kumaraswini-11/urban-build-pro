@@ -158,4 +158,5 @@ Rules:
 - Commits follow Conventional Commits (`feat:`, `fix:`, `chore(deps):`, `refactor:`, `docs:`, `test:`).
 - PR description: what and why, screenshots before and after for UI changes, the checks that were run, and the rollback note.
 - Keep PRs small and single-purpose. Formatting-only changes go in separate commits.
+- **Audit before every commit.** The procedure is in `AGENTS.md` → "Pre-commit audit": scope check, automated checks, a line-by-line diff review, and an independent review for non-trivial commits.
 - Record significant decisions as ADRs in `docs/adr/NNNN-title.md`.

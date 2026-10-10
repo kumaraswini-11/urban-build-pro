@@ -60,6 +60,7 @@ Format: **ID — title** · date · status · who decided, followed by the decis
 
 - **Integration branch:** `modernize/integration`, created from `main`.
 - **Phase branches:** one per roadmap phase (`modernize/m1-security`, `modernize/m1b-tooling`, …), each cut from the latest `modernize/integration`.
+- **Pre-commit audit:** every commit is audited before it is made: scope, automated checks, diff review, and an independent review for non-trivial changes (procedure in `AGENTS.md`). Requested by the product owner on 2026-10-10.
 - **Scope rule:** any task the product owner asks for while a phase is in progress belongs to **that phase branch** (as its own commit). Do not open a separate branch or PR for small in-phase requests.
 - **Pull requests:** each phase branch gets a PR **targeting `modernize/integration`** (merge commit, not squash). The product owner opens and merges these PRs; the assistant prepares the branch, the PR description and the verification evidence, then waits. The next phase starts from the updated integration branch.
 - **Final review:** PR #1 (`modernize/integration` → `main`) stays open as the cumulative review and is merged by the product owner when every phase is done.
@@ -91,7 +92,7 @@ Format: **ID — title** · date · status · who decided, followed by the decis
 
 2026-10-10 · Accepted · Product owner
 
-- **Decision:** decisions go in this file. Conventions go in [ENGINEERING_STANDARDS](ENGINEERING_STANDARDS.md). Agent instructions go in `/AGENTS.md`, the cross-tool standard; `CLAUDE.md` only imports it.
+- **Decision:** decisions go in this file. Conventions go in [ENGINEERING_STANDARDS](ENGINEERING_STANDARDS.md). Agent instructions go in `/AGENTS.md`, the cross-tool standard, as the **single** instructions file. Claude Code (v2.1.277+) reads `AGENTS.md` directly when no `CLAUDE.md` exists, so the repo has no `CLAUDE.md` (removed 2026-10-10 at the owner's request). Fallback for older Claude Code, or for sessions that can't read `AGENTS.md`: a one-line `CLAUDE.md` containing `@AGENTS.md`. Note that a personal `CLAUDE.local.md` also stops `AGENTS.md` from being read. Source: https://code.claude.com/docs/en/memory.md#agentsmd
 - **Rule:** assistants must not rely on private memory for project decisions.
 
 ### D-009 — Agent skills are vendored in the repo
