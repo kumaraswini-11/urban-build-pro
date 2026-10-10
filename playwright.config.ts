@@ -51,5 +51,7 @@ export default defineConfig({
     url: BASE_URL,
     reuseExistingServer: !isCI,
     timeout: 240_000,
+    // Log quote requests instead of emailing them (refused on Vercel production).
+    env: { LEAD_DELIVERY: "console" },
   },
 });

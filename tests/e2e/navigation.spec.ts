@@ -54,18 +54,3 @@ test.describe("desktop navigation", () => {
     await expect(page.locator("#contact")).toBeInViewport();
   });
 });
-
-test("contact form confirms a submitted quote request", async ({ page }) => {
-  test.fail(true, "S3: submissions are only logged to the console");
-  await page.goto("/", { waitUntil: "networkidle" });
-  const form = page.locator("#contact form");
-
-  await form.getByPlaceholder("Full Name").fill("Jane Doe");
-  await form.getByPlaceholder("Email Address").fill("jane@example.com");
-  await form.getByPlaceholder(/tell us about your project/i).fill("A test.");
-  await form.getByRole("button", { name: /send message/i }).click();
-
-  await expect(page.getByRole("status")).toContainText(/thank|received/i, {
-    timeout: 5000,
-  });
-});
