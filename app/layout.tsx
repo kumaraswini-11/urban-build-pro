@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { DM_Sans, Barlow } from "next/font/google";
 
 import { ThemeProvider } from "@/components/theme-provider";
+import { siteUrl } from "@/lib/env";
 import "./globals.css";
 
 // Construction branding usually favors high-readability sans-serifs
@@ -42,12 +43,12 @@ export const metadata: Metadata = {
     "Project Management",
     "Urban Builders Portfolio",
   ],
-  authors: [{ name: "Urban Builders", url: process.env.NEXT_PUBLIC_SITE_URL }],
+  authors: [{ name: "Urban Builders", url: siteUrl }],
   creator: "Urban Builders",
   publisher: "Urban Builders",
 
-  // Clean URL for sharing
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL!),
+  metadataBase: new URL(siteUrl),
+  alternates: { canonical: "/" },
 
   openGraph: {
     title: "Urban Builders | Engineering the Future",

@@ -2,7 +2,7 @@ name: CI
 
 on:
   push:
-    branches: [main, "modernize/**"]
+    branches: [main]
   pull_request:
 
 concurrency:
@@ -11,10 +11,6 @@ concurrency:
 
 permissions:
   contents: read
-
-env:
-  # Removed in M1 once the build no longer depends on it (S4).
-  NEXT_PUBLIC_SITE_URL: http://localhost:3100
 
 jobs:
   quality:

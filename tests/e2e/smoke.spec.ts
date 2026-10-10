@@ -22,7 +22,6 @@ test("unknown routes render the 404 page", async ({ page }) => {
 });
 
 test("sitemap only lists routes that exist", async ({ page, request }) => {
-  test.fail(true, "C1: sitemap lists /contact, which is not a route");
   const sitemap = await (await request.get("/sitemap.xml")).text();
   const locations = [...sitemap.matchAll(/<loc>(.*?)<\/loc>/g)].map(
     (match) => new URL(match[1]).pathname,
