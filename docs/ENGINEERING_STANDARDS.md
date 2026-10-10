@@ -112,7 +112,7 @@ Rules:
 
 ## 8. Configuration and secrets
 
-- Read env vars through `lib/env.ts` only (zod-validated). Never use `process.env.X!`.
+- Public/site config (e.g. `NEXT_PUBLIC_SITE_URL`) is read through `lib/env.ts`. Server secrets are read inside their `server-only` module, with an injectable env parameter for tests, e.g. `features/lead-capture/deliver.ts` (D-012). Never use `process.env.X!`.
 - `NEXT_PUBLIC_*` is only for values that are safe to publish (they are inlined at build time).
 - Every variable is documented in `.env.example` with a safe example value. Never commit a real `.env`.
 

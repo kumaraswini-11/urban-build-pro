@@ -29,20 +29,20 @@ bun run test:e2e                # Playwright e2e + axe (builds and serves on :31
 bun run build
 ```
 
-### Pre-commit audit (every commit, no exceptions)
+### Audit cadence (D-006)
+
+**Every commit:**
 
 1. **Scope:** `git diff --cached --stat` lists only the files this commit is meant to touch. Editors may pre-stage files, so `git reset` and add explicit paths if needed.
-2. **Automated checks:**
-   - always: `typecheck`, `lint`, `format:check` and `test`;
-   - code or config changes: also `test:e2e`;
-   - dependency changes: also `bun audit`, before and after.
-3. **Review the staged diff line by line.** Look for:
-   - correctness and regressions;
-   - scope creep, i.e. changes the commit message doesn't describe;
-   - secrets;
-   - commit ordering, i.e. whether this commit breaks CI on its own.
-4. **Independent review for non-trivial commits** (code, config, dependencies, generated or bulk edits): a separate reviewer or agent audits the diff, and blockers and should-fix findings are resolved before committing. Docs-only commits need steps 1–3.
-5. **Record it:** list the checks you ran in the commit body or PR description.
+2. **Fast checks:** `typecheck`, `lint` and `test`, plus `bun audit` for dependency changes.
+3. **Self-review the staged diff:** look for scope creep, secrets, and whether the commit breaks CI on its own.
+
+**Once per phase, before the PR:**
+
+1. **Full suite:** `test:e2e` against a production build.
+2. **Independent review:** a separate reviewer or agent audits the whole phase diff. Resolve blockers and should-fix findings before handing over the PR.
+3. **Manual screenshots:** check UI changes at 390, 768 and 1440 px.
+4. **Record the evidence:** list the checks you ran in the PR description.
 
 ## Workflow rules
 
@@ -64,7 +64,7 @@ bun run build
 - Files use `kebab-case`. Components are `PascalCase` named exports. Hooks are `use-*.ts`.
 - **Styling:** design tokens only, no raw palette colours or hex values. Brand yellow is a fill colour, never text on light backgrounds. Both light and dark themes must pass contrast (D-003).
 - **Primitives:** reuse `components/ui` (shadcn). Add new ones with `bunx shadcn@latest add <name>`; don't hand-roll dialogs, accordions or carousels.
-- **Environment:** read env vars only through `lib/env.ts` (once it exists). Never use `process.env.X!`.
+- **Environment:** public/site config goes through `lib/env.ts`. Server secrets are read inside their `server-only` module, with an injectable env for tests (D-012). Never use `process.env.X!`. Document every variable in `.env.example`.
 - **Accessibility:** WCAG 2.2 AA is a release gate. Links need `href`. Every control needs a visible label or `aria-label`. Respect `prefers-reduced-motion`.
 
 ## Gotchas
