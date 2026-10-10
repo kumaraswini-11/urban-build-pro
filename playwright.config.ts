@@ -51,6 +51,5 @@ export default defineConfig({
     url: BASE_URL,
     reuseExistingServer: !isCI,
     timeout: 240_000,
-    env: { NEXT_PUBLIC_SITE_URL: BASE_URL },
   },
 });

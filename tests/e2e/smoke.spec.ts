@@ -22,7 +22,6 @@ test("unknown routes render the 404 page", async ({ page }) => {
 });
 
 test("sitemap only lists routes that exist", async ({ page, request }) => {
-  test.fail(true, "C1: sitemap lists /contact, which is not a route");
   const sitemap = await (await request.get("/sitemap.xml")).text();
   const locations = [...sitemap.matchAll(/<loc>(.*?)<\/loc>/g)].map(
     (match) => new URL(match[1]).pathname,
@@ -32,4 +31,19 @@ test("sitemap only lists routes that exist", async ({ page, request }) => {
     const response = await page.goto(pathname);
     expect(response?.status(), pathname).toBe(200);
   }
+});
+
+test("responses carry security headers and hide the framework", async ({
+  request,
+}) => {
+  const response = await request.get("/");
+  const headers = response.headers();
+
+  expect(headers["x-powered-by"]).toBeUndefined();
+  expect(headers["x-content-type-options"]).toBe("nosniff");
+  expect(headers["x-frame-options"]).toBe("DENY");
+  expect(headers["strict-transport-security"]).toContain("max-age=");
+  expect(headers["content-security-policy"]).toContain(
+    "frame-ancestors 'none'",
+  );
 });

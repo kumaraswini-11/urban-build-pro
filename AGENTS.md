@@ -36,7 +36,7 @@ Run typecheck, lint, test and test:e2e before every commit. Run test:visual for 
 
 - **Branches:**
   - work on `modernize/<phase>` branches cut from `modernize/integration`;
-  - merge phase branches into the integration branch with `--no-ff`;
+  - each phase ends with a PR **into `modernize/integration`**, opened and merged by the product owner (D-006); prepare the branch, PR description and evidence, then wait;
   - **never push, or commit/merge to `main`**: the product owner does that after review.
 - **Commits:** one logical change per commit, using Conventional Commits (`feat:`, `fix:`, `chore(deps):`, `refactor:`, `test:`, `docs:`). Reference finding IDs.
 - **Known defects:** they are encoded as `test.fail()` in `tests/e2e`. When a fix makes one pass, remove the marker in the same change.
@@ -56,6 +56,7 @@ Run typecheck, lint, test and test:e2e before every commit. Run test:visual for 
 
 ## Gotchas
 
+- **Staging:** the editor may pre-stage files. Before each commit, run `git diff --cached --stat`, or `git reset` and then add explicit paths, so a commit contains only its own change.
 - **Windows / line endings:** this repo is developed on Windows with `core.autocrlf=true`. Keep LF in the repo.
 - **Visual snapshots** are platform-suffixed (`-win32.png`). CI does not run them.
 - **Build-time env:** `NEXT_PUBLIC_*` values are inlined at build time.
