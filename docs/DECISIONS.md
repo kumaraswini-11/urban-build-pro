@@ -84,8 +84,13 @@ Format: **ID — title** · date · status · who decided, followed by the decis
   - The React Compiler rules exist in Biome only as a nursery rule, and this app compiles with the React Compiler, so those rules stay in ESLint.
 - **Costs:**
   - A one-time Tailwind class re-sort (Biome's order is not Tailwind's official order).
-  - Markdown is no longer auto-formatted.
+  - Markdown and YAML are no longer format-checked: Biome does not format them, and `ignoreUnknown` skips them.
   - Requires `.gitattributes` `eol=lf`.
+- **Implemented in M1b (2026-10-10):**
+  - **Pins:** Biome 2.5.14, ESLint 10.11.0, typescript-eslint 8.70.1, eslint-plugin-react-hooks 7.1.1, @next/eslint-plugin-next 16.3.8.
+  - **Import sorting:** `organizeImports` is an error in `lint`/CI and is applied by `lint:fix`.
+  - **Editor-agnostic:** no editor settings are committed. Configuration lives in `biome.json`, `eslint.config.mjs` and `.gitattributes`, and every editor's Biome/ESLint integration reads those files.
+  - **Blame:** the bulk commits are listed in `.git-blame-ignore-revs`.
 - **Drop ESLint when:** Biome's `useReactCompiler` leaves nursery.
 
 ### D-008 — Project context lives in the repo

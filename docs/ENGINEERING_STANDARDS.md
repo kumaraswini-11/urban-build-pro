@@ -48,7 +48,7 @@ Rules:
 - **Single responsibility.** A section composes; it does not hold interaction logic. Extract any logic into a hook or an island.
 - **Props are minimal and typed.** Prefer composition (`children`, `asChild`) over boolean prop explosions. Variants go through `cva`.
 - **Reuse before creating.** Check `components/ui` and `components/brand` first. Don't re-implement a primitive (dialog, accordion, tabs, carousel). Generate it with `bunx shadcn@latest add <name>`, then restyle it.
-- **Generated `ui/` files are owned code:** they are linted and tested. Customise them through variants, not one-off `className` overrides repeated across call sites.
+- **Generated `ui/` files are owned code:** they are formatted and tested. They are excluded from linting so they stay close to upstream shadcn; review changes to them by hand. Customise them through variants, not one-off `className` overrides repeated across call sites.
 - **Keys:** stable ids or slugs, not array indexes, for any list that can change.
 - **No dead code.** No commented-out JSX, unused props or unused files.
 - **No hard-coded copy in sections.** Text comes from `content/`. Microcopy (button labels, form messages) lives with its component or in `content/site.ts`.

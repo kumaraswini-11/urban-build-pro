@@ -21,8 +21,9 @@ A modernization is in progress. Read these before making non-trivial changes:
 bun install --frozen-lockfile   # never update the lockfile by accident
 bun run dev                     # http://localhost:3000
 bun run typecheck               # tsc --noEmit
-bun run lint                    # linting (see D-007 for tooling)
-bun run format:check
+bun run lint                    # Biome (format, lint, import sorting) + ESLint (React Compiler, Next rules)
+bun run lint:fix                # apply Biome fixes: formatting, import sorting, class order
+bun run format:check            # Biome formatting only (already part of lint)
 bun run test                    # Vitest unit/component tests
 bun run test:e2e                # Playwright e2e + axe (builds and serves on :3100)
 bun run test:visual             # screenshot baselines, local only (platform-specific)
@@ -71,6 +72,7 @@ bun run build
 
 ## Gotchas
 
+- **Formatting coverage:** Biome formats TS/JS/JSON/CSS only. Keep Markdown and YAML tidy by hand.
 - **Local binaries:** run them with `bunx <bin>` or `bun run <script>`, never `npx`. On this machine npm cannot see bun's shims, so `npx <name>` silently downloads and runs an unrelated registry package with that name (this happened with `tsc` and `biome`).
 - **Staging:** the editor may pre-stage files. Before each commit, run `git diff --cached --stat`, or `git reset` and then add explicit paths, so a commit contains only its own change.
 - **Windows / line endings:** this repo is developed on Windows with `core.autocrlf=true`. Keep LF in the repo.
