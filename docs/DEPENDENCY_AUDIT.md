@@ -14,14 +14,14 @@ Versions marked "unverified" could not be confirmed from a primary source. **No 
 
 ## Headline
 
-| Metric                 | Value                                                                                                                                      |
-| ---------------------- | ------------------------------------------------------------------------------------------------------------------------------------------ |
-| Direct dependencies    | 19 runtime + 16 dev = 35                                                                                                                   |
-| `bun audit`            | **87 advisories: 3 critical, 49 high, 30 moderate, 5 low**                                                                                 |
-| Criticals              | `next` ×2 (RCE), `swiper` ×1 (prototype pollution). All three are fixable with in-major bumps.                                             |
-| Unused packages        | `sonner` (no `<Toaster>` mounted). `next-themes` has no effect (dark mode unreachable).                                                    |
-| Replaceable or dormant | `react-scroll` (causes the keyboard-inaccessible nav), `react-countup` (no release since 2024-03), `swiper` (heavy for a 2-slide carousel) |
-| Mis-placed             | `@types/react-scroll` sits in `dependencies`                                                                                               |
+| Metric                 | Value                                                                                                                                           |
+| ---------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------- |
+| Direct dependencies    | 19 runtime + 16 dev = 35                                                                                                                        |
+| `bun audit`            | **87 advisories: 3 critical, 49 high, 30 moderate, 5 low**                                                                                      |
+| Criticals              | `next` ×2 (RCE), `swiper` ×1 (prototype pollution). All three are fixable with in-major bumps.                                                  |
+| Unused packages        | `sonner` (no `<Toaster>` mounted). `next-themes` currently has no effect (no toggle) — kept and wired up because dark mode is required (D-003). |
+| Replaceable or dormant | `react-scroll` (causes the keyboard-inaccessible nav), `react-countup` (no release since 2024-03), `swiper` (heavy for a 2-slide carousel)      |
+| Mis-placed             | `@types/react-scroll` sits in `dependencies`                                                                                                    |
 
 ### Version policy
 
@@ -31,7 +31,7 @@ Versions marked "unverified" could not be confirmed from a primary source. **No 
    - next + eslint-config-next
    - react + react-dom + @types
    - tailwindcss + @tailwindcss/postcss + tailwind-merge
-   - prettier + prettier-plugin-tailwindcss
+   - biome (pinned exactly; nursery rules can change output)
 4. Each **major** upgrade gets its own PR, only after tests exist.
 5. Do not chase "latest" for its own sake. The targets below are a coherent, supported set.
 
@@ -68,20 +68,20 @@ After Milestone 1, re-run `bun audit`. The acceptance target is **0 critical and
 | `@radix-ui/react-*` (dialog 1.1.15, select 2.2.6, slot 1.2.4, tabs 1.1.13) | —                | Migrate to the unified **`radix-ui`** package (§7) | Fixes since the installed versions include React 19 infinite re-render loops (slot 1.2.5, select 2.3.2), which are relevant with the React Compiler.                                                                                                       |
 | `motion`                                                                   | 12.23.26         | **12.43.0**                                        | Within the current range, no code changes. Adopt `MotionConfig reducedMotion="user"` and `LazyMotion` + `m`, which are available in every 12.x and save about 12 KB gzip.                                                                                  |
 | `react-icons`                                                              | 5.5.0            | **5.7.0**                                          | Icon-set bumps. All 23 used Ri*/Pi* names were verified to exist in 5.7.0. Do **not** adopt the 6.0 beta.                                                                                                                                                  |
-| `prettier`                                                                 | 3.7.4            | **3.9.9**                                          | Some JS/JSX formatting changes. Run `prettier --write` in a dedicated formatting-only commit.                                                                                                                                                              |
-| `prettier-plugin-tailwindcss`                                              | 0.7.2            | **0.8.1**                                          | Needs Prettier ≥ 3.7. **Add `"tailwindStylesheet": "./app/globals.css"`** to `.prettierrc`; without it, v4 custom tokens are sorted incorrectly.                                                                                                           |
-| `@types/node`                                                              | 20.19.27 (`^20`) | **^24**                                            | Node 20 reached end of life on 2026-04-30. Match the deployment runtime (Node 24 LTS). Add `"engines": { "node": ">=24" }` once hosting is confirmed.                                                                                                      |
+| `prettier`                                                                 | 3.7.4            | **3.9.9**                                          | **Superseded:** removed in favour of Biome (D-007).                                                                                                                                                                                                        |
+| `prettier-plugin-tailwindcss`                                              | 0.7.2            | **0.8.1**                                          | **Superseded:** removed; Biome `useSortedClasses` sorts classes (D-007).                                                                                                                                                                                   |
+| `@types/node`                                                              | 20.19.27 (`^20`) | **^24**                                            | Node 20 reached end of life on 2026-04-30. Match the deployment runtime (Node 24 LTS). Add `"engines": { "node": ">=24" }` and set Node 24 in Vercel project settings (D-002).                                                                             |
 
 ## 4. Major (breaking) upgrades — isolated PRs after the test net exists
 
-| Package               | Installed       | Target                                              | Breaking changes / blockers                                                                                                                                                                                                                                                                                                  | When                      |
-| --------------------- | --------------- | --------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------- |
-| `lucide-react`        | 0.562.0         | **^1.55** (≥ 1.0.1; 1.0.0 was published by mistake) | All brand icons removed (unused here). `aria-hidden="true"` by default. UMD build dropped. The 9 used names were verified in 1.55.0, so it is effectively a drop-in.                                                                                                                                                         | Milestone 6               |
-| `next` + `react` 19.3 | 16.3.8 / 19.2.8 | 16.4.x / 19.3.0                                     | 16.4.0 was published 2026-10-06. Wait for 16.4.1+. Cache Components stays opt-in until Next 17, so the change is safe. react-dom 19.3 has a strict peer on react ^19.3.                                                                                                                                                      | After 16.4.1 plus 14 days |
-| `motion`              | 12.43.0         | 14.x                                                | Changes from 13 to 14 are internal APIs, not used here. 14.1.0 was published 2026-10-09; let it soak. Re-evaluate whether motion is still needed after the refactor (CSS reveals may be enough).                                                                                                                             | Milestone 6 or later      |
-| `eslint`              | 9.39.5          | 10.x                                                | **Blocked.** eslint-config-next 16.4 still bundles eslint-plugin-react, jsx-a11y and import, whose peer ranges stop at v9 (vercel/next.js#89764 is open). ESLint 9 has been EOL since 2026-08-06, so track this. Migration then: `eslint-plugin-import` → **`eslint-plugin-import-x`** (verified working in a scratch copy). | When next supports it     |
-| `typescript`          | 5.9.3           | stay **5.9.3**. Defer 6.0 and 7.0.                  | TS 6 changes defaults (`types: []`, strict on, `baseUrl` deprecated). TS 7 (native Go port) is supported by `next build` only experimentally, and typescript-eslint caps TypeScript at `<6.1.0`.                                                                                                                             | Re-evaluate in Q1 2027    |
-| `swiper`              | 12.2.0          | 14.3.0 **or removal**                               | v14 is a TypeScript rewrite with no code changes but a higher browser baseline. Removal is recommended instead (§6).                                                                                                                                                                                                         | Milestone 3               |
+| Package               | Installed       | Target                                              | Breaking changes / blockers                                                                                                                                                                                         | When                      |
+| --------------------- | --------------- | --------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------- |
+| `lucide-react`        | 0.562.0         | **^1.55** (≥ 1.0.1; 1.0.0 was published by mistake) | All brand icons removed (unused here). `aria-hidden="true"` by default. UMD build dropped. The 9 used names were verified in 1.55.0, so it is effectively a drop-in.                                                | Milestone 6               |
+| `next` + `react` 19.3 | 16.3.8 / 19.2.8 | 16.4.x / 19.3.0                                     | 16.4.0 was published 2026-10-06. Wait for 16.4.1+. Cache Components stays opt-in until Next 17, so the change is safe. react-dom 19.3 has a strict peer on react ^19.3.                                             | After 16.4.1 plus 14 days |
+| `motion`              | 12.43.0         | 14.x                                                | Changes from 13 to 14 are internal APIs, not used here. 14.1.0 was published 2026-10-09; let it soak. Re-evaluate whether motion is still needed after the refactor (CSS reveals may be enough).                    | Milestone 6 or later      |
+| `eslint`              | 9.39.5          | 10.x                                                | **Unblocked by D-007:** drop eslint-config-next and its v9-capped plugins; a minimal ESLint 10 with react-hooks v7 + @next/eslint-plugin-next + typescript-eslint parser runs cleanly (verified in a scratch copy). | When next supports it     |
+| `typescript`          | 5.9.3           | stay **5.9.3**. Defer 6.0 and 7.0.                  | TS 6 changes defaults (`types: []`, strict on, `baseUrl` deprecated). TS 7 (native Go port) is supported by `next build` only experimentally, and typescript-eslint caps TypeScript at `<6.1.0`.                    | Re-evaluate in Q1 2027    |
+| `swiper`              | 12.2.0          | 14.3.0 **or removal**                               | v14 is a TypeScript rewrite with no code changes but a higher browser baseline. Removal is recommended instead (§6).                                                                                                | Milestone 3               |
 
 ## 5. Deprecated, dormant or abandoned
 
@@ -90,8 +90,8 @@ After Milestone 1, re-run `bun audit`. The acceptance target is **0 critical and
 | `react-scroll` 1.9.3          | One release in 20 months; CommonJS, not tree-shakable (12.3 KB gzip). **It causes U1:** its links render without `href`, so they are keyboard-unreachable. It also conflicts with CSS `scroll-smooth`. | **Remove.** Use native `<a href="#id">`, `scroll-padding-top`, and a ~30-line IntersectionObserver hook for the active link.        |
 | `@types/react-scroll` 1.8.10  | Only needed for react-scroll, and wrongly placed in `dependencies`.                                                                                                                                    | **Remove** together with react-scroll.                                                                                              |
 | `react-countup` 6.5.3         | No release since 2024-03-22. No reduced-motion handling (verified). Renders "0" in server HTML.                                                                                                        | **Remove.** Write a small `count-up` client island with motion's `animate()`: final value in the SSR HTML, respects reduced motion. |
-| `next-themes` 0.4.6           | Last release 2025-03-11, last commit 2025-05-31. Open React 19.2 dev-mode issues. **No effect today** (light theme forced, no toggle).                                                                 | **Remove** with the `.dark` tokens unless dark mode becomes a requirement.                                                          |
-| `eslint-plugin-import` 2.32.0 | No ESLint 10 support; its release is stalled upstream.                                                                                                                                                 | Keep for now. Replace with `eslint-plugin-import-x` in the ESLint 10 PR.                                                            |
+| `next-themes` 0.4.6           | Last release 2025-03-11, last commit 2025-05-31. Open React 19.2 dev-mode issues. **No effect today** (light theme forced, no toggle).                                                                 | **Keep** — dark mode is required (D-003). Wire up a toggle; re-evaluate if React/Next updates break it.                             |
+| `eslint-plugin-import` 2.32.0 | No ESLint 10 support; its release is stalled upstream.                                                                                                                                                 | **Remove** — Biome organizeImports replaces import/order (D-007).                                                                   |
 
 ## 6. Redundant or unnecessary
 
@@ -142,8 +142,9 @@ Add these only in Milestone 0 or 2, when tests are introduced.
     "start": "next start",
     "lint": "eslint .",
     "typecheck": "tsc --noEmit",
-    "format": "prettier --write .",
-    "format:check": "prettier --check .",
+    "format": "biome format --write .",
+    "format:check": "biome format .",
+    "lint": "biome check . && eslint .",
     "test": "vitest run",
     "test:e2e": "playwright test",
   },
@@ -163,6 +164,6 @@ Add these only in Milestone 0 or 2, when tests are introduced.
     "zod": "^4",
     // + lead-delivery SDK once chosen
   },
-  // removed: swiper, react-scroll, @types/react-scroll, react-countup, sonner, next-themes, 4× @radix-ui/react-*
+  // removed: swiper, react-scroll, @types/react-scroll, react-countup, sonner, prettier, eslint-config-next, eslint-plugin-import, 4× @radix-ui/react-*
 }
 ```

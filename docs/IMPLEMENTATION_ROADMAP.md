@@ -53,7 +53,18 @@ Strategy: **hybrid in-place modernization** ([MODERNIZATION_DECISION](MODERNIZAT
 - The axe count is ≤ baseline.
 - The headers are present in `curl -I`.
 
-### M2 — Lead capture (stops the lost leads) · ~2.5–3.5 d · _blocked on: delivery provider decision_
+### M1b — Tooling: Biome + minimal ESLint 10 · ~0.5–1 d · _D-007_
+
+1. `.gitattributes` with `* text=auto eol=lf` (+ binary types), then `git add --renormalize .` in its own commit.
+2. Add `@biomejs/biome` (pinned exactly) and `biome.json` (formatter matching current Prettier style, `css.parser.tailwindDirectives`, recommended rules + react/test/playwright domains, `organizeImports` groups, `useSortedClasses` for `cn`/`cva`/`clsx`; `components/ui` not linted).
+3. Separate commits for: Biome format, import/`useImportType` fixes, the one-time class re-sort. List those SHAs in `.git-blame-ignore-revs`.
+4. Fix the real Biome findings (index keys, non-null assertion, header aria-label, unused param).
+5. Replace ESLint: remove eslint-config-next, eslint-config-prettier, eslint-plugin-import, eslint-import-resolver-typescript, prettier, prettier-plugin-tailwindcss and `.prettierrc`; add eslint 10 + eslint-plugin-react-hooks 7 + typescript-eslint + @next/eslint-plugin-next (same version as next) with a minimal `eslint.config.mjs`.
+6. Scripts (`lint` = `biome check . && eslint .`), CI (`biome ci .` + `eslint . --max-warnings=0`), `.vscode/settings.json` + `extensions.json`.
+
+**Acceptance:** `biome ci .` and `eslint .` clean; typecheck, unit, e2e green; screenshot diff unchanged (formatting-only changes).
+
+### M2 — Lead capture (stops the lost leads) · ~2.5–3.5 d · _provider adapter with Resend default (D-005)_
 
 1. `features/lead-capture/`:
    - `schema.ts` (zod);
@@ -67,7 +78,7 @@ Strategy: **hybrid in-place modernization** ([MODERNIZATION_DECISION](MODERNIZAT
    - `role="status"` success/error message;
    - works without JS.
 3. The Select gets a label (fixes the axe button-name issue). Phone input uses `type="tel"` and `autocomplete` attributes.
-4. Newsletter: implement it on the same module **or** remove it (product decision). Name the icon submit button.
+4. Newsletter: removed from the footer until it is wanted (D-004); rebuild later on this module.
 5. Tests:
    - unit tests for schema and action (valid, invalid, honeypot, provider failure);
    - e2e: submit → success state, invalid → field errors, no-JS submit.
@@ -131,7 +142,7 @@ Strategy: **hybrid in-place modernization** ([MODERNIZATION_DECISION](MODERNIZAT
 
 1. Move `lib/constants.ts` into `content/*` with zod schemas parsed at build. Use one naming convention. Add a brand-name constant.
 2. Real OG image (1200×630). Consistent brand name and alt texts. JSON-LD (`GeneralContractor`) once the content is real.
-3. Remove `sonner` + `ui/sonner.tsx`, `next-themes`, and the unused tokens (`.dark`, `sidebar-*`, `chart-*`), unless dark mode is required. Replace raw palette colours with tokens.
+3. Remove `sonner` + `ui/sonner.tsx` and unused tokens (`sidebar-*`, `chart-*`). Replace raw palette colours with tokens. **Dark mode (D-003):** fix `.dark` tokens, add `surface-inverse`/`on-inverse`, ship an accessible theme toggle, and run axe + visual baselines in both themes.
 4. Rewrite the README (bun, Next 16, setup, scripts, env, architecture link). Add a LICENSE (confirm with the client). Real screenshot. Package name `urban-build-pro`.
 5. Lint `components/ui/**` (remove the ignore). Fix the findings.
 6. Placeholder content checklist handed to the client (phone, socials, CEO name and signature, testimonials, project links).
@@ -140,14 +151,14 @@ Strategy: **hybrid in-place modernization** ([MODERNIZATION_DECISION](MODERNIZAT
 
 ### M6 — Remaining upgrades (isolated PRs) · ~1–2 d
 
-| PR    | Change                                                                                                                                                 | Gate                                                                         |
-| ----- | ------------------------------------------------------------------------------------------------------------------------------------------------------ | ---------------------------------------------------------------------------- |
-| 6a    | Radix → unified `radix-ui@1.6.7` via `bunx shadcn@latest migrate radix`. Remove the 4 `@radix-ui/react-*` packages.                                    | Sheet, Select, Tabs, Accordion and `Button asChild` on the 404 page all work |
-| 6b    | tailwindcss + @tailwindcss/postcss **4.3.3** + tailwind-merge **3.7.0**                                                                                | Screenshot diff is clean                                                     |
-| 6c    | lucide-react **1.x**, react-icons **5.7.0**                                                                                                            | Visual check of the icons                                                    |
-| 6d    | prettier **3.9.9** + plugin **0.8.1** (+ `tailwindStylesheet`), then a separate formatting-only commit                                                 | Format check                                                                 |
-| 6e    | motion **12.43.0** (if not already done in M4); eslint 9.39.5; @types/node 24                                                                          | CI                                                                           |
-| later | next 16.4.x + react 19.3 (after 16.4.1+, 14-day soak) · radix-ui 1.7.x · motion 14 · ESLint 10 + import-x (when eslint-config-next supports it) · TS 6 | Each its own PR                                                              |
+| PR    | Change                                                                                                                                          | Gate                                                                         |
+| ----- | ----------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------- |
+| 6a    | Radix → unified `radix-ui@1.6.7` via `bunx shadcn@latest migrate radix`. Remove the 4 `@radix-ui/react-*` packages.                             | Sheet, Select, Tabs, Accordion and `Button asChild` on the 404 page all work |
+| 6b    | tailwindcss + @tailwindcss/postcss **4.3.3** + tailwind-merge **3.7.0**                                                                         | Screenshot diff is clean                                                     |
+| 6c    | lucide-react **1.x**, react-icons **5.7.0**                                                                                                     | Visual check of the icons                                                    |
+| 6d    | _(superseded by the tooling phase — Biome + minimal ESLint 10, D-007)_                                                                          | Format check                                                                 |
+| 6e    | motion **12.43.0** (if not already done in M4); eslint 9.39.5; @types/node 24                                                                   | CI                                                                           |
+| later | next 16.4.x + react 19.3 (after 16.4.1+, 14-day soak) · radix-ui 1.7.x · motion 14 · drop ESLint (when Biome useReactCompiler is stable) · TS 6 | Each its own PR                                                              |
 
 **Acceptance:** `bun outdated` shows only deliberately deferred majors. `bun audit` is clean for runtime dependencies. All gates are green.
 
@@ -172,5 +183,5 @@ M0 ─► M1 ─► M2 (needs provider decision) ─┐
 ## Decisions needed from the product owner before M2
 
 1. Lead destination and provider (email, CRM, or both; persistence and privacy notice).
-2. Hosting target (Vercel, Node server, Windows).
-3. Keep the newsletter? 4. Dark mode required? 5. Real content and assets. 6. Will the site go multi-page? (This would trigger re-evaluation; see MODERNIZATION_DECISION §6.)
+2. ~~Hosting target~~ → Vercel (D-002).
+3. ~~Newsletter~~ → later (D-004). 4. ~~Dark mode~~ → required (D-003). 5. Real content and assets. 6. Will the site go multi-page? (This would trigger re-evaluation; see MODERNIZATION_DECISION §6.)
