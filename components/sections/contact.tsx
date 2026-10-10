@@ -1,8 +1,8 @@
 import type { IconType } from "react-icons";
 import { RiChat1Line, RiMapPin2Line, RiSmartphoneLine } from "react-icons/ri";
 
-import { ContactForm } from "@/components/contact-form";
 import { Socials } from "@/components/socials";
+import { QuoteForm } from "@/features/lead-capture/quote-form";
 import { CONTACT_INFO } from "@/lib/constants";
 
 export const Contact = () => {
@@ -51,7 +51,7 @@ export const Contact = () => {
               Fill out the form below and our engineering team will contact you
               within 24 hours.
             </p>
-            <ContactForm />
+            <QuoteForm />
           </div>
         </div>
       </div>

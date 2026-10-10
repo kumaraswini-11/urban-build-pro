@@ -14,9 +14,6 @@ export default defineConfig({
     baseURL: BASE_URL,
     trace: "retain-on-failure",
   },
-  expect: {
-    toHaveScreenshot: { maxDiffPixelRatio: 0.01, animations: "disabled" },
-  },
   projects: [
     {
       name: "desktop",
@@ -51,5 +48,7 @@ export default defineConfig({
     url: BASE_URL,
     reuseExistingServer: !isCI,
     timeout: 240_000,
+    // Log quote requests instead of emailing them (refused on Vercel production).
+    env: { LEAD_DELIVERY: "console" },
   },
 });

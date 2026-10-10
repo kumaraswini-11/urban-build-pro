@@ -35,7 +35,7 @@ It is sized for the product as it actually is, not for a generic enterprise temp
 | Validation                | **zod 4**                                                                                                                                                    | One schema for the Server Action, the client hints and the environment variables.                                                             |
 | Package manager / runtime | **bun 1.3.x** (frozen lockfile in CI), **Node 24 LTS**                                                                                                       | The team already uses bun. Node 20 is end of life.                                                                                            |
 | Quality                   | **Biome** (format, lint, imports, class sorting) + minimal **ESLint 10** (react-hooks v7, @next/next) per D-007, **Vitest + RTL**, **Playwright + axe-core** | Covered in [ENGINEERING_STANDARDS](ENGINEERING_STANDARDS.md).                                                                                 |
-| CI                        | GitHub Actions                                                                                                                                               | Install → typecheck → lint → unit → build (**without .env**) → e2e + axe + visual → `bun audit`.                                              |
+| CI                        | GitHub Actions                                                                                                                                               | Install → typecheck → lint → unit → build (**without .env**) → e2e + axe → `bun audit`.                                              |
 
 ### Chosen with restraint
 
@@ -68,7 +68,7 @@ It is sized for the product as it actually is, not for a generic enterprise temp
                      └────────────────────────────────────────────────────────────────────────────────┘
  Browser ── <form action={submitQuote}> ──► features/lead-capture/actions.ts ("use server")
                                               ├─ schema.ts (zod) → field errors back to useActionState
-                                              ├─ spam.ts  (honeypot, rate limit)
+                                              ├─ honeypot in actions.ts; edge rate limit (D-012)
                                               └─ deliver.ts (provider adapter; log/persist on failure)
 ```
 
@@ -127,7 +127,6 @@ urban-build-pro/
 ├─ tests/
 │  ├─ e2e/   navigation.spec.ts · lead-capture.spec.ts · responsive.spec.ts · no-js.spec.ts
 │  ├─ a11y/  axe.spec.ts           # every section, 390 + 1440
-│  └─ visual/ home.spec.ts (+ snapshots)
 ├─ docs/   (these documents) · docs/adr/
 ├─ next.config.ts           # reactCompiler, poweredByHeader:false, headers(), images config
 ├─ vitest.config.ts · playwright.config.ts

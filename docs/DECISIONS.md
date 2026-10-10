@@ -49,7 +49,7 @@ Format: **ID — title** · date · status · who decided, followed by the decis
 2026-10-10 · Accepted (provider confirmable later) · Claude, delegated by product owner
 
 - **Decision:**
-  - quote requests go through a Server Action with zod validation, a honeypot and a rate limit;
+  - quote requests go through a Server Action with zod validation and a honeypot; rate limiting happens at the edge (amended by D-012);
   - delivery goes through a `deliverLead()` adapter;
   - default provider is Resend (common on Vercel); it can be swapped for Postmark, SES or a CRM without touching the form.
 - **Rule:** if the provider is not configured, the form shows an honest error with the phone and email fallback. It never shows a fake success.
@@ -60,7 +60,11 @@ Format: **ID — title** · date · status · who decided, followed by the decis
 
 - **Integration branch:** `modernize/integration`, created from `main`.
 - **Phase branches:** one per roadmap phase (`modernize/m1-security`, `modernize/m1b-tooling`, …), each cut from the latest `modernize/integration`.
-- **Pre-commit audit:** every commit is audited before it is made: scope, automated checks, diff review, and an independent review for non-trivial changes (procedure in `AGENTS.md`). Requested by the product owner on 2026-10-10.
+- **Audit cadence** (revised 2026-10-10 at the owner's request, for speed):
+  - every commit: scope check, fast checks (typecheck, lint, unit) and a self-review;
+  - once per phase, before the PR: the full e2e suite, an independent review of the whole phase diff, and a manual screenshot review.
+
+  The procedure is in `AGENTS.md`.
 - **Scope rule:** any task the product owner asks for while a phase is in progress belongs to **that phase branch** (as its own commit). Do not open a separate branch or PR for small in-phase requests.
 - **Pull requests:** each phase branch gets a PR **targeting `modernize/integration`** (merge commit, not squash). The product owner opens and merges these PRs; the assistant prepares the branch, the PR description and the verification evidence, then waits. The next phase starts from the updated integration branch.
 - **Final review:** PR #1 (`modernize/integration` → `main`) stays open as the cumulative review and is merged by the product owner when every phase is done.
@@ -136,3 +140,34 @@ Format: **ID — title** · date · status · who decided, followed by the decis
 - **Decision:** shadcn now defaults new projects to Base UI, but Radix is not deprecated and existing projects need not migrate.
   - Migrate the 4 `@radix-ui/react-*` packages to unified `radix-ui` with `shadcn migrate radix`.
   - Start on 1.6.7. Move to 1.7.x after it soaks: 1.7.0 was published 2026-10-05 and re-lands a Slot change for React Server Components that had been reverted once.
+
+### D-012 — Lead capture: spam protection, delivery driver and env handling
+
+2026-10-10 · Accepted · Claude (owner actions listed)
+
+- **Decision:**
+  - The form has a honeypot field (`hp_ref`, named so autofill ignores it) plus server-side zod validation.
+  - **No in-code rate limiter:** in-memory limits don't work across Vercel instances.
+  - Abuse is limited at the edge instead (owner actions below), and the `to` address is fixed, so the form can't be used as an open relay.
+- **Owner actions (Vercel / Resend dashboards):**
+  1. Set the Production env vars `RESEND_API_KEY`, `LEAD_TO_EMAIL` and `LEAD_FROM_EMAIL` (with a verified sending domain).
+  2. Add a Vercel Firewall rate-limit rule for POST requests carrying the `Next-Action` header, e.g. a few per minute per IP; check your plan includes it.
+  3. Set a Resend usage alert.
+- **Delivery driver:**
+  - `LEAD_DELIVERY=console` logs leads instead of emailing them. It's used for local dev and e2e tests, and refused on Vercel production.
+  - On Vercel *preview* deployments it's allowed, so preview submissions are logged (including personal data) rather than emailed. Previews sit behind Vercel deployment protection.
+  - **Self-hosting:** never set `LEAD_DELIVERY=console` in production.
+- **Env handling:**
+  - Server secrets are read inside `deliver.ts` (guarded by `server-only`, which Next aliases internally, so there's no extra dependency), with an injectable env for tests.
+  - `lib/env.ts` stays limited to public/site config.
+
+### D-013 — Visual screenshot tests removed
+
+2026-10-10 · Accepted · Product owner
+
+- **Decision:** remove the Playwright `toHaveScreenshot` baselines and `test:visual` scripts. The owner deleted the PNGs in d9caf82; the spec and scripts followed.
+- **Why:**
+  - the baselines were platform-specific (Windows only, never run in CI);
+  - they added about 9 MB of binary history per UI change;
+  - they kept being invalidated by in-progress UI work.
+- **Instead:** the e2e and axe suites guard behaviour and accessibility, and UI changes get a manual screenshot review at 390, 768 and 1440 px before each phase PR.

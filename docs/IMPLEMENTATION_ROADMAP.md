@@ -9,7 +9,7 @@ Strategy: **hybrid in-place modernization** ([MODERNIZATION_DECISION](MODERNIZAT
 - Every PR must pass:
   - `typecheck`, `lint`, `test`, `build` **without `.env`**;
   - Playwright e2e + axe;
-  - screenshot diff at 390, 768 and 1440 px (intentional changes are re-baselined in the same PR, with before/after screenshots in the description).
+  - a manual screenshot review at 390, 768 and 1440 px at the end of each phase (screenshot tests removed, D-013).
 - Dependency changes: one coupled group per PR, a lockfile refresh, `bun audit` before and after, and the release notes linked in the PR.
 - **Rollback:** every PR is independently revertable. The original state is tagged `baseline-2026-10-10`.
 - Report only checks that were actually run.
@@ -68,7 +68,7 @@ Strategy: **hybrid in-place modernization** ([MODERNIZATION_DECISION](MODERNIZAT
 
 1. `features/lead-capture/`:
    - `schema.ts` (zod);
-   - `actions.ts` (`"use server"`, re-validate, honeypot, rate limit, typed result);
+   - `actions.ts` (`"use server"`, re-validate, honeypot, typed result; rate limiting at the edge per D-012);
    - `deliver.ts` (provider adapter; server-side failure log or persisted copy).
 2. `quote-form.tsx`:
    - `useActionState`;
@@ -142,7 +142,7 @@ Strategy: **hybrid in-place modernization** ([MODERNIZATION_DECISION](MODERNIZAT
 
 1. Move `lib/constants.ts` into `content/*` with zod schemas parsed at build. Use one naming convention. Add a brand-name constant.
 2. Real OG image (1200×630). Consistent brand name and alt texts. JSON-LD (`GeneralContractor`) once the content is real.
-3. Remove `sonner` + `ui/sonner.tsx` and unused tokens (`sidebar-*`, `chart-*`). Replace raw palette colours with tokens. **Dark mode (D-003):** fix `.dark` tokens, add `surface-inverse`/`on-inverse`, ship an accessible theme toggle, and run axe + visual baselines in both themes.
+3. Remove `sonner` + `ui/sonner.tsx` and unused tokens (`sidebar-*`, `chart-*`). Replace raw palette colours with tokens. **Dark mode (D-003):** fix `.dark` tokens, add `surface-inverse`/`on-inverse`, ship an accessible theme toggle, and run axe in both themes and review screenshots manually.
 4. Rewrite the README (bun, Next 16, setup, scripts, env, architecture link). Add a LICENSE (confirm with the client). Real screenshot. Package name `urban-build-pro`.
 5. Lint `components/ui/**` (remove the ignore). Fix the findings.
 6. Placeholder content checklist handed to the client (phone, socials, CEO name and signature, testimonials, project links).
