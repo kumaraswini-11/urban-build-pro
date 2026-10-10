@@ -59,7 +59,10 @@ Format: **ID — title** · date · status · who decided, followed by the decis
 2026-10-10 · Accepted · Product owner
 
 - **Integration branch:** `modernize/integration`, created from `main`.
-- **Phase branches:** one per roadmap phase (`modernize/m0-baseline`, `modernize/m1-security`, …), each merged into the integration branch with `--no-ff`.
+- **Phase branches:** one per roadmap phase (`modernize/m1-security`, `modernize/m1b-tooling`, …), each cut from the latest `modernize/integration`.
+- **Pull requests:** each phase branch gets a PR **targeting `modernize/integration`** (merge commit, not squash). The product owner opens and merges these PRs; the assistant prepares the branch, the PR description and the verification evidence, then waits. The next phase starts from the updated integration branch.
+- **Final review:** PR #1 (`modernize/integration` → `main`) stays open as the cumulative review and is merged by the product owner when every phase is done.
+- _History:_ M0 and M0b were merged into the integration branch locally before this PR flow was set up. They arrive in `main` through PR #1.
 - **Baseline tag:** the original state is tagged `baseline-2026-10-10`.
 - **Main:** the product owner reviews the integration branch and merges it into `main` themselves. Nothing is pushed or merged to `main` by an assistant.
 - **Naming note:** git cannot have a branch named `modernize` alongside `modernize/*`, which is why the integration branch is `modernize/integration`.
