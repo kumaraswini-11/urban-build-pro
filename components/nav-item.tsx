@@ -19,10 +19,13 @@ export const NavItem = ({ link, isLast, onClick }: NavItemProps) => {
         smooth
         spy
         offset={-70}
-        activeClass="text-foreground after:scale-x-100"
+        // react-scroll appends activeClass as a raw string, so style it with
+        // higher-specificity [&.active] variants instead of competing classes.
+        activeClass="active"
         className={cn(
           "relative cursor-pointer font-bold text-[13px] text-background uppercase tracking-[2px] transition-colors hover:text-primary",
-          "after:absolute after:-bottom-1 after:left-0 after:h-0.5 after:w-full after:origin-left after:scale-x-0 after:bg-foreground after:transition-transform after:duration-300",
+          "after:absolute after:-bottom-1 after:left-0 after:h-0.5 after:w-full after:origin-left after:scale-x-0 after:bg-primary after:transition-transform after:duration-300",
+          "[&.active]:text-primary [&.active]:after:scale-x-100",
         )}
         onClick={onClick}
       >

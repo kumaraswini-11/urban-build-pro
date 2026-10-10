@@ -22,6 +22,48 @@ test.describe("desktop navigation", () => {
     }
   });
 
+  test("the active nav link stays readable on the dark header (U3)", async ({
+    page,
+  }) => {
+    await page.goto("/", { waitUntil: "networkidle" });
+    const nav = page.getByRole("navigation", { name: "Desktop navigation" });
+    await nav.getByText("About Us", { exact: true }).click();
+    await page.waitForTimeout(1500);
+    // Keep the pointer off the nav so hover styles can't mask a regression.
+    await page.mouse.move(0, 0);
+    await page.waitForTimeout(500); // let transition-colors finish
+
+    const { primary, links } = await page.evaluate(() => {
+      const probe = document.createElement("span");
+      probe.className = "text-primary";
+      document.body.append(probe);
+      const primary = getComputedStyle(probe).color;
+      probe.remove();
+      // Both the static and the sticky header carry the active link.
+      const links = [
+        ...document.querySelectorAll(
+          'nav[aria-label="Desktop navigation"] .active',
+        ),
+      ].map((link) => ({
+        text: link.textContent,
+        color: getComputedStyle(link).color,
+        underlineScale: getComputedStyle(link, "::after").scale,
+        headerBackground: getComputedStyle(link.closest("header") as Element)
+          .backgroundColor,
+      }));
+      return { primary, links };
+    });
+
+    expect(links.length).toBeGreaterThan(0);
+    for (const link of links) {
+      expect(link.text).toBe("About Us");
+      expect(link.color).toBe(primary);
+      expect(link.color).not.toBe(link.headerBackground);
+      // Tailwind v4 scale-x uses the CSS `scale` property: "0 1" when hidden.
+      expect(link.underlineScale).not.toMatch(/^0[ %]/);
+    }
+  });
+
   test("nav links are reachable with the keyboard", async ({ page }) => {
     test.fail(true, "U1: react-scroll links render without href");
     await page.goto("/", { waitUntil: "networkidle" });
