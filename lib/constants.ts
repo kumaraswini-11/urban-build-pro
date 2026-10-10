@@ -1,17 +1,17 @@
 import {
-  PiWallFill,
   PiPaintRollerFill,
-  PiWrenchFill,
   PiUserGearFill,
+  PiWallFill,
+  PiWrenchFill,
 } from "react-icons/pi";
 import {
   RiFacebookFill,
-  RiYoutubeFill,
-  RiTwitterXFill,
   RiInstagramFill,
+  RiTwitterXFill,
+  RiYoutubeFill,
 } from "react-icons/ri";
 
-import { NavLink, Service, SocialLink, Statistic } from "@/lib/types";
+import type { NavLink, Service, SocialLink, Statistic } from "@/lib/types";
 
 export const SOCIAL_LINKS: SocialLink[] = [
   {

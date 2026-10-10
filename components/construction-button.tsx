@@ -1,4 +1,4 @@
-import { ComponentProps } from "react";
+import type { ComponentProps } from "react";
 import { RiArrowRightUpLine } from "react-icons/ri";
 
 import { Button } from "@/components/ui/button";

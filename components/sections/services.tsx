@@ -5,7 +5,7 @@ import { useState } from "react";
 
 import { ConstructionButton } from "@/components/construction-button";
 import { Pretitle } from "@/components/pretitle";
-import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { services } from "@/lib/constants";
 import { cn } from "@/lib/utils";
 

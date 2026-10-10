@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { RiArrowLeftLine, RiArrowRightLine } from "react-icons/ri";
-import { Pagination, Autoplay } from "swiper/modules";
+import { Autoplay, Pagination } from "swiper/modules";
 import { Swiper, SwiperSlide, useSwiper } from "swiper/react";
 
 // Import Swiper styles

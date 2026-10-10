@@ -2,7 +2,7 @@
 
 import { Link as ScrollLink } from "react-scroll";
 
-import { NavLink } from "@/lib/types";
+import type { NavLink } from "@/lib/types";
 import { cn } from "@/lib/utils";
 
 interface NavItemProps {

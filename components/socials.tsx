@@ -1,7 +1,7 @@
 import Link from "next/link";
 
 import { SOCIAL_LINKS } from "@/lib/constants";
-import { SocialsProps } from "@/lib/types";
+import type { SocialsProps } from "@/lib/types";
 import { cn } from "@/lib/utils";
 
 export const Socials = ({ containerStyles, iconStyles }: SocialsProps) => {

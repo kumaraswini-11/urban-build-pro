@@ -3,7 +3,7 @@
 import { motion } from "motion/react";
 import Image from "next/image";
 import Link from "next/link";
-import { RiCheckboxCircleFill, RiArrowRightUpLine } from "react-icons/ri";
+import { RiArrowRightUpLine, RiCheckboxCircleFill } from "react-icons/ri";
 
 import { Pretitle } from "@/components/pretitle";
 import { buttonVariants } from "@/components/ui/button";

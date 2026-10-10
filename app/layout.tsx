@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { DM_Sans, Barlow } from "next/font/google";
+import { Barlow, DM_Sans } from "next/font/google";
 
 import { ThemeProvider } from "@/components/theme-provider";
 import { siteUrl } from "@/lib/env";

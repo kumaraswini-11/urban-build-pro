@@ -1,8 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { IconType } from "react-icons";
-import { RiPhoneFill, RiMailFill } from "react-icons/ri";
+import type { IconType } from "react-icons";
+import { RiMailFill, RiPhoneFill } from "react-icons/ri";
 
 import { Socials } from "@/components/socials";
 import { CONTACT_INFO } from "@/lib/constants";

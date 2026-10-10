@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import type React from "react";
 
 import { ConstructionButton } from "@/components/construction-button";
 import { Logo } from "@/components/logo";
