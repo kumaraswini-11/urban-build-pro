@@ -61,7 +61,7 @@ Rules:
 - **Radius** is `0` by design: use `rounded-none` / tokens and never mix in `rounded-md` / `rounded-sm` ad hoc.
 - **Brand yellow** is a fill colour behind dark text. It is **never text on a light background** (contrast about 1.6:1).
 - **Inverse surfaces** use `surface-inverse` / `on-inverse` tokens, not `bg-foreground text-background` inversions.
-- Use `cn()` for conditional classes. Order classes with prettier-plugin-tailwindcss (`tailwindStylesheet` configured).
+- Use `cn()` for conditional classes. Classes are ordered by Biome `useSortedClasses` (D-007).
 
 ## 5. Accessibility (WCAG 2.2 AA — release gate)
 
@@ -125,16 +125,16 @@ Rules:
 
 ## 10. Testing and quality gates
 
-| Layer         | Tool                                                     | What is covered                                                                                                                |
-| ------------- | -------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------ |
-| Static        | `tsc --noEmit`, ESLint (incl. `components/ui`), Prettier | every PR                                                                                                                       |
-| Unit          | Vitest                                                   | schemas, actions (with mocked delivery), hooks, utilities                                                                      |
-| Component     | Vitest + RTL (jsdom)                                     | interactive islands: mobile nav, accordion, carousel pause, quote form states                                                  |
-| E2E           | Playwright                                               | navigation (every link reaches its section), lead submission (success, validation, no-JS), responsive overflow at 320/390, 404 |
-| Accessibility | @axe-core/playwright                                     | every section at 390 and 1440, 0 serious or critical                                                                           |
-| Visual        | Playwright `toHaveScreenshot`                            | sections at 390, 768 and 1440                                                                                                  |
-| Security      | `bun audit`                                              | fail on runtime high or critical                                                                                               |
-| Build         | `next build` **without `.env`**                          | every PR                                                                                                                       |
+| Layer         | Tool                                                                             | What is covered                                                                                                                |
+| ------------- | -------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------ |
+| Static        | `tsc --noEmit`, Biome (`biome ci`), minimal ESLint (React Compiler + Next rules) | every PR                                                                                                                       |
+| Unit          | Vitest                                                                           | schemas, actions (with mocked delivery), hooks, utilities                                                                      |
+| Component     | Vitest + RTL (jsdom)                                                             | interactive islands: mobile nav, accordion, carousel pause, quote form states                                                  |
+| E2E           | Playwright                                                                       | navigation (every link reaches its section), lead submission (success, validation, no-JS), responsive overflow at 320/390, 404 |
+| Accessibility | @axe-core/playwright                                                             | every section at 390 and 1440, 0 serious or critical                                                                           |
+| Visual        | Playwright `toHaveScreenshot`                                                    | sections at 390, 768 and 1440                                                                                                  |
+| Security      | `bun audit`                                                                      | fail on runtime high or critical                                                                                               |
+| Build         | `next build` **without `.env`**                                                  | every PR                                                                                                                       |
 
 - A bug fix comes with a regression test.
 - Don't skip hooks or disable lint rules inline without a comment explaining why.

@@ -27,6 +27,9 @@ Think critically. Don't assume the current code is correct because it runs, and 
 3. **Primary sources only for facts.** Versions from the package registry; security from the advisory database (per-advisory data, not just the package manager's summary); APIs and migration steps from official docs, changelogs and migration guides. Never invent version numbers; write "unverified" when you can't confirm.
 4. **Never claim a check passed unless you ran it.** Report failures with their output.
 5. **Ask before risky or ambiguous changes**; list product decisions you can't make yourself.
+6. **Project context lives in the repo, not in the assistant's memory.** Record every decision (yours and the owner's) in `docs/DECISIONS.md` with date, status, reason and consequences; put agent instructions in `AGENTS.md` (the cross-tool standard; `CLAUDE.md` just contains `@AGENTS.md`). The next person, machine or AI tool must be able to continue from the repo alone.
+7. **Branching:** integration branch `<prefix>/integration` from `main`, one `<prefix>/<phase>` branch per milestone merged with `--no-ff`, a baseline tag on the starting commit; the owner merges to `main`. (Git can't have both `modernize` and `modernize/*`.)
+8. **Third-party agent skills** (e.g. via `npx skills add <repo> --skill <name> --agent claude-code --copy`) are installed at project level with `skills-lock.json`, but only after a security review of every file — they run with full agent permissions. Install a relevant subset, not whole catalogues.
 
 ## Stage 1 — Audit (no code changes)
 
@@ -61,6 +64,8 @@ Assess and report on: architecture & module boundaries; code quality, SOLID/DRY,
 ### 1.4 Dependency audit
 
 For **every direct dependency** (and important transitive ones, e.g. image libraries under the framework): installed vs declared version, latest stable, release date, maintenance status (last release/commit), advisories and first patched version, deprecation, compatibility with the framework/runtime/peers, breaking changes (from official changelogs), whether it is actually imported (grep), whether it duplicates something else, bundle cost, and a decision with migration effort and risk.
+
+Also evaluate **tooling consolidation** (e.g. Biome replacing Prettier + most of ESLint): trial it on a scratch copy, compare formatter output byte-for-byte, and keep only the lint rules the new tool lacks (e.g. React Compiler rules) in a minimal config.
 
 Also check for **ecosystem consolidations and default changes** that won't show up in `outdated` — for example: UI primitives merged into a single package (e.g. Radix → `radix-ui`), component-library CLIs changing their default primitives or generated imports (e.g. shadcn/ui), icon libraries removing brand icons in a major, frameworks renaming files/APIs (e.g. Next.js `middleware` → `proxy`), linters whose ecosystem plugins haven't caught up with a new major. Note release dates and apply a **minimum release age (~14 days) for non-security upgrades**.
 

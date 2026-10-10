@@ -25,17 +25,17 @@ It is sized for the product as it actually is, not for a generic enterprise temp
 
 ### Essential
 
-| Concern                   | Choice (version)                                                                                                              | Why this, for this app                                                                                                                        |
-| ------------------------- | ----------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------- |
-| Framework                 | **Next.js 16.3.8** App Router (→ 16.4.x after its first patch)                                                                | SSG + Server Components + Server Actions + `next/image` + `next/font` + metadata routes in one supported framework. The team already uses it. |
-| UI runtime                | **React 19.2.8** (→ 19.3 with Next 16.4), React Compiler on                                                                   | `useActionState` for forms. The Compiler removes manual memoisation.                                                                          |
-| Language                  | **TypeScript 5.9.3**, `strict`                                                                                                | TS 6/7 deferred: typescript-eslint caps at <6.1, and TS 7 support in Next is experimental.                                                    |
-| Styling                   | **Tailwind CSS 4.3.3** (CSS-first `@theme`), `tailwind-merge` 3.7, `clsx`, `cva`                                              | Design tokens live in CSS. No runtime CSS-in-JS. This is the shadcn baseline.                                                                 |
-| UI primitives             | **shadcn/ui new-york on unified `radix-ui`**                                                                                  | Accessible primitives (Dialog/Sheet, Select, Tabs, Accordion, Carousel, Label) that we own and can restyle to radius 0.                       |
-| Validation                | **zod 4**                                                                                                                     | One schema for the Server Action, the client hints and the environment variables.                                                             |
-| Package manager / runtime | **bun 1.3.x** (frozen lockfile in CI), **Node 24 LTS**                                                                        | The team already uses bun. Node 20 is end of life.                                                                                            |
-| Quality                   | ESLint 9 (→ 10 + import-x when Next supports it), Prettier 3.9 + tailwind plugin, **Vitest + RTL**, **Playwright + axe-core** | Covered in [ENGINEERING_STANDARDS](ENGINEERING_STANDARDS.md).                                                                                 |
-| CI                        | GitHub Actions                                                                                                                | Install → typecheck → lint → unit → build (**without .env**) → e2e + axe + visual → `bun audit`.                                              |
+| Concern                   | Choice (version)                                                                                                                                             | Why this, for this app                                                                                                                        |
+| ------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------- |
+| Framework                 | **Next.js 16.3.8** App Router (→ 16.4.x after its first patch)                                                                                               | SSG + Server Components + Server Actions + `next/image` + `next/font` + metadata routes in one supported framework. The team already uses it. |
+| UI runtime                | **React 19.2.8** (→ 19.3 with Next 16.4), React Compiler on                                                                                                  | `useActionState` for forms. The Compiler removes manual memoisation.                                                                          |
+| Language                  | **TypeScript 5.9.3**, `strict`                                                                                                                               | TS 6/7 deferred: typescript-eslint caps at <6.1, and TS 7 support in Next is experimental.                                                    |
+| Styling                   | **Tailwind CSS 4.3.3** (CSS-first `@theme`), `tailwind-merge` 3.7, `clsx`, `cva`                                                                             | Design tokens live in CSS. No runtime CSS-in-JS. This is the shadcn baseline.                                                                 |
+| UI primitives             | **shadcn/ui new-york on unified `radix-ui`**                                                                                                                 | Accessible primitives (Dialog/Sheet, Select, Tabs, Accordion, Carousel, Label) that we own and can restyle to radius 0.                       |
+| Validation                | **zod 4**                                                                                                                                                    | One schema for the Server Action, the client hints and the environment variables.                                                             |
+| Package manager / runtime | **bun 1.3.x** (frozen lockfile in CI), **Node 24 LTS**                                                                                                       | The team already uses bun. Node 20 is end of life.                                                                                            |
+| Quality                   | **Biome** (format, lint, imports, class sorting) + minimal **ESLint 10** (react-hooks v7, @next/next) per D-007, **Vitest + RTL**, **Playwright + axe-core** | Covered in [ENGINEERING_STANDARDS](ENGINEERING_STANDARDS.md).                                                                                 |
+| CI                        | GitHub Actions                                                                                                                                               | Install → typecheck → lint → unit → build (**without .env**) → e2e + axe + visual → `bun audit`.                                              |
 
 ### Chosen with restraint
 
@@ -55,7 +55,7 @@ It is sized for the product as it actually is, not for a generic enterprise temp
 - **CMS**: there is no non-developer editing requirement yet.
 - **i18n**: not required.
 - **Auth**: there are no user accounts.
-- **Dark mode / next-themes**: not a requirement. The brand is light, with an inverse dark header and footer.
+- _(Dark mode **is** required — see D-003: `next-themes` + an accessible light/dark/system toggle, with semantic surface tokens.)_
 - **CSS-in-JS**, **Storybook** (not worth it for about 15 components), **monorepo tooling**.
 
 ## 3. Rendering and module architecture
@@ -106,7 +106,7 @@ urban-build-pro/
 │  └─ interactive/          # "use client": mobile-nav, active-section-nav, count-up, reveal, testimonials-carousel
 ├─ features/
 │  └─ lead-capture/
-│     ├─ actions.ts         # "use server": submitQuote (+ subscribeNewsletter if kept)
+│     ├─ actions.ts         # "use server": submitQuote (+ subscribeNewsletter when the newsletter returns, D-004)
 │     ├─ schema.ts          # zod schemas + inferred types
 │     ├─ deliver.ts         # provider adapter (server-only)
 │     ├─ spam.ts            # honeypot + rate limit
@@ -131,7 +131,7 @@ urban-build-pro/
 ├─ docs/   (these documents) · docs/adr/
 ├─ next.config.ts           # reactCompiler, poweredByHeader:false, headers(), images config
 ├─ vitest.config.ts · playwright.config.ts
-├─ eslint.config.mjs · .prettierrc · components.json · tsconfig.json
+├─ biome.json · eslint.config.mjs (minimal) · components.json · tsconfig.json
 ├─ .env.example · README.md · LICENSE
 └─ package.json
 ```
