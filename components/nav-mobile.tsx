@@ -11,10 +11,10 @@ import { Button } from "@/components/ui/button";
 import {
   Sheet,
   SheetContent,
+  SheetDescription,
   SheetHeader,
   SheetTitle,
   SheetTrigger,
-  SheetDescription,
 } from "@/components/ui/sheet";
 import { navLinks } from "@/lib/constants";
 
@@ -28,7 +28,7 @@ export const NavMobile = () => {
       <SheetTrigger asChild>
         <Button
           size="icon"
-          className="text-foreground flex cursor-pointer items-center justify-center text-3xl transition-transform hover:opacity-75"
+          className="flex cursor-pointer items-center justify-center text-3xl text-foreground transition-transform hover:opacity-75"
           aria-label="Open Menu"
         >
           <RiMenu3Fill />
@@ -37,7 +37,7 @@ export const NavMobile = () => {
 
       <SheetContent
         side="right"
-        className="bg-foreground text-background flex w-[min(380px,90vw)] flex-col border-none p-0 shadow-2xl"
+        className="flex w-[min(380px,90vw)] flex-col border-none bg-foreground p-0 text-background shadow-2xl"
       >
         {/* Header Area */}
         <div className="flex flex-col px-8 pt-10 pb-6">
@@ -72,8 +72,8 @@ export const NavMobile = () => {
         </nav>
 
         {/* Footer Area with Socials */}
-        <div className="border-border/10 bg-muted-foreground/5 mt-auto border-t px-8 py-10">
-          <p className="text-background mb-4 text-[10px] font-bold tracking-[2px] uppercase">
+        <div className="mt-auto border-border/10 border-t bg-muted-foreground/5 px-8 py-10">
+          <p className="mb-4 font-bold text-[10px] text-background uppercase tracking-[2px]">
             Connect with us
           </p>
           <Socials

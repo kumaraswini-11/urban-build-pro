@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import type React from "react";
 
 import { ConstructionButton } from "@/components/construction-button";
 import { Logo } from "@/components/logo";
@@ -17,8 +17,7 @@ export const Header: React.FC<HeaderProps> = ({ isSticky }) => {
   return (
     <header
       id="home"
-      className={cn("bg-foreground w-full", isSticky ? "py-2" : "py-0")}
-      aria-label="Main navigation"
+      className={cn("w-full bg-foreground", isSticky ? "py-2" : "py-0")}
     >
       <div className="container mx-auto flex h-16 items-center px-4">
         <div className="flex w-full items-center justify-between">

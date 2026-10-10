@@ -10,7 +10,7 @@ export const Hero = () => {
     <section
       className={cn(
         "relative flex h-[85vh] min-h-150 items-center overflow-hidden",
-        "bg-hero bg-cover bg-center bg-no-repeat",
+        "bg-center bg-cover bg-hero bg-no-repeat",
       )}
     >
       {/* High-Contrast Overlay for Readability */}
@@ -26,12 +26,12 @@ export const Hero = () => {
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, ease: "easeOut" }}
           >
-            <h1 className="text-background text-2xl leading-[1.1] font-extrabold uppercase md:text-4xl lg:text-6xl">
+            <h1 className="font-extrabold text-2xl text-background uppercase leading-[1.1] md:text-4xl lg:text-6xl">
               <span className="text-primary">Building</span> robust, lasting
               solutions
             </h1>
 
-            <p className="text-background/80 mt-6 mb-10 max-w-140 text-lg leading-relaxed md:text-xl">
+            <p className="mt-6 mb-10 max-w-140 text-background/80 text-lg leading-relaxed md:text-xl">
               From initial concept to final completion, we meticulously optimize
               every detail for strength and longevity, crafting solutions that
               instill confidence.
@@ -52,7 +52,7 @@ export const Hero = () => {
       </div>
 
       {/* Visual Decoration: Industrial Accent Line */}
-      <div className="bg-primary absolute bottom-0 left-0 z-20 h-2 w-full md:w-1/3" />
+      <div className="absolute bottom-0 left-0 z-20 h-2 w-full bg-primary md:w-1/3" />
     </section>
   );
 };

@@ -60,6 +60,8 @@ Format: **ID — title** · date · status · who decided, followed by the decis
 
 - **Integration branch:** `modernize/integration`, created from `main`.
 - **Phase branches:** one per roadmap phase (`modernize/m1-security`, `modernize/m1b-tooling`, …), each cut from the latest `modernize/integration`.
+- **Pre-commit audit:** every commit is audited before it is made: scope, automated checks, diff review, and an independent review for non-trivial changes (procedure in `AGENTS.md`). Requested by the product owner on 2026-10-10.
+- **Scope rule:** any task the product owner asks for while a phase is in progress belongs to **that phase branch** (as its own commit). Do not open a separate branch or PR for small in-phase requests.
 - **Pull requests:** each phase branch gets a PR **targeting `modernize/integration`** (merge commit, not squash). The product owner opens and merges these PRs; the assistant prepares the branch, the PR description and the verification evidence, then waits. The next phase starts from the updated integration branch.
 - **Final review:** PR #1 (`modernize/integration` → `main`) stays open as the cumulative review and is merged by the product owner when every phase is done.
 - _History:_ M0 and M0b were merged into the integration branch locally before this PR flow was set up. They arrive in `main` through PR #1.
@@ -82,15 +84,20 @@ Format: **ID — title** · date · status · who decided, followed by the decis
   - The React Compiler rules exist in Biome only as a nursery rule, and this app compiles with the React Compiler, so those rules stay in ESLint.
 - **Costs:**
   - A one-time Tailwind class re-sort (Biome's order is not Tailwind's official order).
-  - Markdown is no longer auto-formatted.
+  - Markdown and YAML are no longer format-checked: Biome does not format them, and `ignoreUnknown` skips them.
   - Requires `.gitattributes` `eol=lf`.
+- **Implemented in M1b (2026-10-10):**
+  - **Pins:** Biome 2.5.14, ESLint 10.11.0, typescript-eslint 8.70.1, eslint-plugin-react-hooks 7.1.1, @next/eslint-plugin-next 16.3.8.
+  - **Import sorting:** `organizeImports` is an error in `lint`/CI and is applied by `lint:fix`.
+  - **Editor-agnostic:** no editor settings are committed. Configuration lives in `biome.json`, `eslint.config.mjs` and `.gitattributes`, and every editor's Biome/ESLint integration reads those files.
+  - **Blame:** the bulk commits are listed in `.git-blame-ignore-revs`.
 - **Drop ESLint when:** Biome's `useReactCompiler` leaves nursery.
 
 ### D-008 — Project context lives in the repo
 
 2026-10-10 · Accepted · Product owner
 
-- **Decision:** decisions go in this file. Conventions go in [ENGINEERING_STANDARDS](ENGINEERING_STANDARDS.md). Agent instructions go in `/AGENTS.md`, the cross-tool standard; `CLAUDE.md` only imports it.
+- **Decision:** decisions go in this file. Conventions go in [ENGINEERING_STANDARDS](ENGINEERING_STANDARDS.md). Agent instructions go in `/AGENTS.md`, the cross-tool standard, as the **single** instructions file. Claude Code (v2.1.277+) reads `AGENTS.md` directly when no `CLAUDE.md` exists, so the repo has no `CLAUDE.md` (removed 2026-10-10 at the owner's request). Fallback for older Claude Code, or for sessions that can't read `AGENTS.md`: a one-line `CLAUDE.md` containing `@AGENTS.md`. Note that a personal `CLAUDE.local.md` also stops `AGENTS.md` from being read. Source: https://code.claude.com/docs/en/memory.md#agentsmd
 - **Rule:** assistants must not rely on private memory for project decisions.
 
 ### D-009 — Agent skills are vendored in the repo

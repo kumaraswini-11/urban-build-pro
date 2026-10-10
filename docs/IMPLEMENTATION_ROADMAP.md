@@ -60,7 +60,7 @@ Strategy: **hybrid in-place modernization** ([MODERNIZATION_DECISION](MODERNIZAT
 3. Separate commits for: Biome format, import/`useImportType` fixes, the one-time class re-sort. List those SHAs in `.git-blame-ignore-revs`.
 4. Fix the real Biome findings (index keys, non-null assertion, header aria-label, unused param).
 5. Replace ESLint: remove eslint-config-next, eslint-config-prettier, eslint-plugin-import, eslint-import-resolver-typescript, prettier, prettier-plugin-tailwindcss and `.prettierrc`; add eslint 10 + eslint-plugin-react-hooks 7 + typescript-eslint + @next/eslint-plugin-next (same version as next) with a minimal `eslint.config.mjs`.
-6. Scripts (`lint` = `biome check . && eslint .`), CI (`biome ci .` + `eslint . --max-warnings=0`), `.vscode/settings.json` + `extensions.json`.
+6. Scripts (`lint` = `biome check . && eslint . --max-warnings=0`) and CI (`biome ci .` + `eslint . --max-warnings=0`). No editor-specific settings are committed (editor-agnostic, D-007).
 
 **Acceptance:** `biome ci .` and `eslint .` clean; typecheck, unit, e2e green; screenshot diff unchanged (formatting-only changes).
 
@@ -157,7 +157,7 @@ Strategy: **hybrid in-place modernization** ([MODERNIZATION_DECISION](MODERNIZAT
 | 6b    | tailwindcss + @tailwindcss/postcss **4.3.3** + tailwind-merge **3.7.0**                                                                         | Screenshot diff is clean                                                     |
 | 6c    | lucide-react **1.x**, react-icons **5.7.0**                                                                                                     | Visual check of the icons                                                    |
 | 6d    | _(superseded by the tooling phase — Biome + minimal ESLint 10, D-007)_                                                                          | Format check                                                                 |
-| 6e    | motion **12.43.0** (if not already done in M4); eslint 9.39.5; @types/node 24                                                                   | CI                                                                           |
+| 6e    | motion **12.43.0** (if not already done in M4); @types/node 24 (ESLint already on 10 since M1b)                                                                   | CI                                                                           |
 | later | next 16.4.x + react 19.3 (after 16.4.1+, 14-day soak) · radix-ui 1.7.x · motion 14 · drop ESLint (when Biome useReactCompiler is stable) · TS 6 | Each its own PR                                                              |
 
 **Acceptance:** `bun outdated` shows only deliberately deferred majors. `bun audit` is clean for runtime dependencies. All gates are green.

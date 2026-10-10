@@ -1,0 +1,7 @@
+# Bulk mechanical commits to skip in `git blame`.
+# Enable locally: git config blame.ignoreRevsFile .git-blame-ignore-revs (GitHub uses it automatically).
+
+# style: organize imports and use type-only imports (Biome)
+acc18896cee389a545fdea28a2a5cd5496f4ac1f
+# style: sort Tailwind classes with Biome useSortedClasses (one-time)
+929b246ca44d26bdea3282fc5c9b37bfcf2ca592

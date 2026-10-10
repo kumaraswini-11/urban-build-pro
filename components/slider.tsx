@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { RiArrowLeftLine, RiArrowRightLine } from "react-icons/ri";
-import { Pagination, Autoplay } from "swiper/modules";
+import { Autoplay, Pagination } from "swiper/modules";
 import { Swiper, SwiperSlide, useSwiper } from "swiper/react";
 
 // Import Swiper styles
@@ -21,7 +21,7 @@ export const Slider: React.FC = () => {
         autoplay={{ delay: 5000, disableOnInteraction: false }}
         pagination={{ clickable: true, el: ".swiper-custom-pagination" }}
         className={cn(
-          "border-primary bg-background h-[280px] w-full border-b-4 shadow-2xl md:h-[220px]",
+          "h-[280px] w-full border-primary border-b-4 bg-background shadow-2xl md:h-[220px]",
           "mySwiper",
         )}
         aria-live="polite"
@@ -38,17 +38,17 @@ export const Slider: React.FC = () => {
                   alt={`${name} testimonial avatar`}
                   quality={100}
                 />
-                <div className="border-primary absolute -right-2 -bottom-2 -z-10 size-full border-2" />
+                <div className="absolute -right-2 -bottom-2 -z-10 size-full border-2 border-primary" />
               </div>
 
               {/* Text Content */}
               <div className="flex flex-1 flex-col gap-2">
-                <p className="text-muted-foreground leading-relaxed italic md:text-base">
+                <p className="text-muted-foreground italic leading-relaxed md:text-base">
                   {text}
                 </p>
                 <div className="mt-2 flex items-center gap-3">
-                  <div className="bg-primary h-px w-6" />
-                  <p className="font-barlow text-primary text-sm font-bold tracking-wider uppercase">
+                  <div className="h-px w-6 bg-primary" />
+                  <p className="font-barlow font-bold text-primary text-sm uppercase tracking-wider">
                     {name}
                   </p>
                 </div>
@@ -74,7 +74,7 @@ const SliderButton: React.FC = () => {
       <Button
         size="icon"
         variant="ghost"
-        className="bg-primary text-foreground size-10 rounded-none transition-all"
+        className="size-10 rounded-none bg-primary text-foreground transition-all"
         onClick={() => swiper.slidePrev()}
         aria-label="Previous slide"
       >
@@ -83,7 +83,7 @@ const SliderButton: React.FC = () => {
       <Button
         size="icon"
         variant="ghost"
-        className="bg-primary text-foreground size-10 rounded-none transition-all"
+        className="size-10 rounded-none bg-primary text-foreground transition-all"
         onClick={() => swiper.slideNext()}
         aria-label="Next slide"
       >

@@ -9,16 +9,16 @@ import { Slider } from "@/components/slider";
 
 export const Testimonials = () => {
   return (
-    <section className="bg-muted overflow-hidden py-16 xl:py-32">
+    <section className="overflow-hidden bg-muted py-16 xl:py-32">
       <div className="container mx-auto px-4">
         <div className="flex flex-col items-center gap-16 xl:flex-row">
           {/* Text Content */}
           <div className="max-w-[500px] flex-1">
             <Pretitle text="Client Success" />
-            <h2 className="h2 text-foreground mb-6">
+            <h2 className="h2 mb-6 text-foreground">
               Built On Trust, Proven By Results
             </h2>
-            <p className="text-muted-foreground mb-10 text-lg">
+            <p className="mb-10 text-lg text-muted-foreground">
               We take pride in our long-standing relationships with developers
               and homeowners alike. Our reputation is built one brick at a time
               through transparency and quality.
@@ -40,7 +40,7 @@ export const Testimonials = () => {
               <motion.div
                 initial={{ x: 50, opacity: 0 }}
                 whileInView={{ x: 0, opacity: 1 }}
-                className="border-primary absolute -bottom-10 left-0 z-20 w-full max-w-[450px] border-l-4 bg-white p-10 shadow-2xl md:-left-20"
+                className="absolute -bottom-10 left-0 z-20 w-full max-w-[450px] border-primary border-l-4 bg-white p-10 shadow-2xl md:-left-20"
               >
                 <Image
                   src="/assets/images/testimonials/quote.svg"

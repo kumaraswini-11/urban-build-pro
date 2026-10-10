@@ -26,8 +26,8 @@ jobs:
           node-version: 24
       - run: bun install --frozen-lockfile
       - run: bun run typecheck
-      - run: bun run lint
-      - run: bun run format:check
+      - run: bunx biome ci .
+      - run: bunx eslint . --max-warnings=0
       - run: bun run test
 
   e2e:

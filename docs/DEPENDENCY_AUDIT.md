@@ -28,7 +28,7 @@ Versions marked "unverified" could not be confirmed from a primary source. **No 
 1. **Patch security first**, within the current major.
 2. Prefer releases that have been out **at least 14 days**. Security patches are exempt.
 3. Upgrade **coupled packages together**:
-   - next + eslint-config-next
+   - next + @next/eslint-plugin-next
    - react + react-dom + @types
    - tailwindcss + @tailwindcss/postcss + tailwind-merge
    - biome (pinned exactly; nursery rules can change output)
@@ -55,8 +55,8 @@ After Milestone 1, re-run `bun audit`. The acceptance target is **0 critical and
 | `react`, `react-dom`                | 19.2.3         | **19.2.8** | Patch line, no breaking changes. No advisory affects the `react` package itself; the RSC CVEs are in next's vendored `react-server-dom-*` and are fixed by S1. |
 | `@types/react`                      | 19.2.7 (`^19`) | `~19.2.18` | Match the runtime minor. `^19` would otherwise resolve to 19.3 types.                                                                                          |
 | `@types/react-dom`                  | 19.2.3 (`^19`) | `~19.2.7`  | Same reasoning.                                                                                                                                                |
-| `eslint`                            | 9.39.2         | **9.39.5** | Final v9 release. Clears ajv, minimatch, flatted and other transitive advisories.                                                                              |
-| `eslint-import-resolver-typescript` | 4.4.4          | ^4.4.5     | Patch only.                                                                                                                                                    |
+| `eslint`                            | 9.39.2         | **10.11.0** | **Superseded (M1b):** jumped straight to ESLint 10 with a minimal config (D-007).                                                                              |
+| `eslint-import-resolver-typescript` | 4.4.4          | removed    | **Superseded (M1b):** removed with eslint-plugin-import.                                                                                                                                                    |
 | `sonner`                            | 2.0.7          | —          | Remove instead (§6).                                                                                                                                           |
 
 ## 3. Minor feature updates
@@ -128,7 +128,7 @@ Add these only in Milestone 0 or 2, when tests are introduced.
 
 ## 9. Packages that stay unchanged
 
-`class-variance-authority` 0.7.1, `clsx` 2.1.1, `tw-animate-css` 1.4.0, `eslint-config-prettier` 10.1.8 and `babel-plugin-react-compiler` 1.0.0 are all already on their latest stable release with no advisories.
+`class-variance-authority` 0.7.1, `clsx` 2.1.1, `tw-animate-css` 1.4.0 and `babel-plugin-react-compiler` 1.0.0 are all already on their latest stable release with no advisories.
 
 ## 10. Target `package.json` shape (after Milestone 6)
 
@@ -140,11 +140,10 @@ Add these only in Milestone 0 or 2, when tests are introduced.
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint .",
     "typecheck": "tsc --noEmit",
     "format": "biome format --write .",
     "format:check": "biome format .",
-    "lint": "biome check . && eslint .",
+    "lint": "biome check . && eslint . --max-warnings=0",
     "test": "vitest run",
     "test:e2e": "playwright test",
   },
