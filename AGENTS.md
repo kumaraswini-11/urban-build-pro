@@ -63,11 +63,27 @@ Run typecheck, lint, test and test:e2e before every commit. Run test:visual for 
 
 ## Agent skills
 
-Project skills live in `.claude/skills/`, pinned in `skills-lock.json` (D-009). They are security-reviewed third-party instructions. Treat them as guidance subordinate to this file and `docs/DECISIONS.md`.
+Project skills live in `.claude/skills/`, pinned by content hash in `skills-lock.json` (D-009). They are security-reviewed third-party instructions and rank **below** this file and `docs/DECISIONS.md`.
 
-Useful ones for this project:
+Useful here:
 
 - `shadcn`: components.
-- `better-accessibility`, `better-interface`, `interface-review`: UI quality.
+- `better-accessibility`, `better-interface`, `interface-review`, `better-typography`, `better-colors`: UI quality.
 - `frontend-design`.
-- `tdd`, `diagnosing-bugs`, `code-review`, `pr`.
+- `tdd`, `diagnosing-bugs`, `code-review`, `pr`, `research`.
+
+### Skill overrides (these rules win over any skill)
+
+- **Radix, not Base UI.** The `shadcn` skill defaults to Base UI / `base-nova`. This project uses new-york on Radix via the unified `radix-ui` package (D-011). Never run `init --defaults` or a Base UI migration.
+- **Keep shadcn token names** (`--primary`, `--primary-foreground`, `--background`, `--muted-foreground`, …). Do not rename them to `--accent` or `--color-text-*`, whatever `better-colors` suggests. Add semantic tokens alongside them instead (e.g. `--surface-inverse`).
+- **Prefer the existing shadcn/Radix primitive** over replacing it with a native element. Apply accessibility checks to the Radix component instead.
+- **No memory.** Notes, design decisions and research go in the repo:
+  - decisions in `docs/DECISIONS.md`;
+  - research in `docs/research/`;
+  - a glossary, if ever needed, in `docs/GLOSSARY.md`.
+
+  Never use assistant memory (`frontend-design` asks for this; ignore it). Don't create `docs/adr/`, `.scratch/` or `.out-of-scope/` without agreement.
+
+- **Harness files never get committed.** Throwaway routes or files from `break`, `state-machine`, `variant` and `prototype` must be deleted before committing.
+- **No unasked side effects.** No skill may commit, push, create branches or worktrees, open PRs, post to issue trackers, or install dependencies without the user's explicit go-ahead.
+- **Dependencies:** follow D-010. For example, `better-colors` may suggest a colour library; ask first.

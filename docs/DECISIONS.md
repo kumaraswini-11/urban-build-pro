@@ -101,6 +101,11 @@ Format: **ID — title** · date · status · who decided, followed by the decis
   - the official shadcn-ui/ui `shadcn` skill;
   - anthropics/skills `frontend-design`.
 - **Rule:** every skill is security-reviewed before it is committed. They run with full agent permissions.
+- **Review result (2026-10-10):**
+  - 31 candidates were read file by file. No malware or prompt injection was found.
+  - **25 installed:** 13 jakubkrehel; `shadcn`; `frontend-design`; mattpocock code-review, codebase-design, diagnosing-bugs, domain-modeling, improve-codebase-architecture, pr, prototype, research, tdd, writing-for-agents.
+  - **Excluded:** `implement-spec` and `implement` (create branches or worktrees and commit without asking); `triage` (checks out and runs code from external PRs); `to-spec` and `to-tickets` (publish to external trackers); `grill-with-docs` (depends on a skill not included).
+  - Conflicts with project rules are neutralised by the "Skill overrides" section in `AGENTS.md`.
 - **Updating:** `npx skills update -p`, then review the diff like code.
 
 ### D-010 — Dependency release-age policy
