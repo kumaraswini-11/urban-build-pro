@@ -49,7 +49,7 @@ Format: **ID — title** · date · status · who decided, followed by the decis
 2026-10-10 · Accepted (provider confirmable later) · Claude, delegated by product owner
 
 - **Decision:**
-  - quote requests go through a Server Action with zod validation, a honeypot and a rate limit;
+  - quote requests go through a Server Action with zod validation and a honeypot; rate limiting happens at the edge (amended by D-012);
   - delivery goes through a `deliverLead()` adapter;
   - default provider is Resend (common on Vercel); it can be swapped for Postmark, SES or a CRM without touching the form.
 - **Rule:** if the provider is not configured, the form shows an honest error with the phone and email fallback. It never shows a fake success.

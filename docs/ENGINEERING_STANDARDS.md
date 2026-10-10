@@ -16,7 +16,7 @@ These standards apply to all new and refactored code. Where the current code dif
 | `content/`                | Typed and validated copy and data                                                                 | `lib` (schemas), nothing from `components`               |
 | `lib/`                    | Framework-agnostic helpers: `env`, `seo`, `section-ids`, `utils`                                  | nothing app-specific                                     |
 | `hooks/`                  | Client hooks (`use-*.ts`)                                                                         | `lib`                                                    |
-| `tests/`                  | e2e, a11y and visual Playwright specs                                                             | —                                                        |
+| `tests/`                  | e2e and a11y Playwright specs                                                             | —                                                        |
 
 Rules:
 
@@ -104,7 +104,7 @@ Rules:
 - Actions return a typed result: `{ status: "idle" | "success" | "error", fieldErrors?, message? }`. They never throw to the UI for expected failures.
 - Treat every action as an untrusted public endpoint:
   - validate input;
-  - add a honeypot and a rate limit;
+  - add a honeypot (rate limiting at the edge, D-012);
   - keep secrets out of client bundles;
   - log failures without logging PII.
 - Disable the submit button while pending (`useActionState` `pending`) to prevent duplicate submissions.
@@ -158,5 +158,5 @@ Rules:
 - Commits follow Conventional Commits (`feat:`, `fix:`, `chore(deps):`, `refactor:`, `docs:`, `test:`).
 - PR description: what and why, screenshots before and after for UI changes, the checks that were run, and the rollback note.
 - Keep PRs small and single-purpose. Formatting-only changes go in separate commits.
-- **Audit before every commit.** The procedure is in `AGENTS.md` → "Pre-commit audit": scope check, automated checks, a line-by-line diff review, and an independent review for non-trivial commits.
+- **Audit cadence (D-006):** every commit gets a scope check, the fast checks (typecheck, lint, unit) and a self-review. Each phase ends with the full e2e suite, an independent review of the phase diff, and a manual screenshot review. The procedure is in `AGENTS.md`.
 - Record significant decisions as ADRs in `docs/adr/NNNN-title.md`.

@@ -14,8 +14,7 @@
       "!skills-lock.json",
       "!next-env.d.ts",
       "!bun.lock",
-      "!public",
-      "!tests/e2e/*-snapshots"
+      "!public"
     ]
   },
   "formatter": {

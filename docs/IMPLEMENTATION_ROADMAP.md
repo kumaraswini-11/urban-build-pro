@@ -9,7 +9,7 @@ Strategy: **hybrid in-place modernization** ([MODERNIZATION_DECISION](MODERNIZAT
 - Every PR must pass:
   - `typecheck`, `lint`, `test`, `build` **without `.env`**;
   - Playwright e2e + axe;
-  - screenshot diff at 390, 768 and 1440 px (intentional changes are re-baselined in the same PR, with before/after screenshots in the description).
+  - a manual screenshot review at 390, 768 and 1440 px at the end of each phase (screenshot tests removed, D-013).
 - Dependency changes: one coupled group per PR, a lockfile refresh, `bun audit` before and after, and the release notes linked in the PR.
 - **Rollback:** every PR is independently revertable. The original state is tagged `baseline-2026-10-10`.
 - Report only checks that were actually run.
@@ -68,7 +68,7 @@ Strategy: **hybrid in-place modernization** ([MODERNIZATION_DECISION](MODERNIZAT
 
 1. `features/lead-capture/`:
    - `schema.ts` (zod);
-   - `actions.ts` (`"use server"`, re-validate, honeypot, rate limit, typed result);
+   - `actions.ts` (`"use server"`, re-validate, honeypot, typed result; rate limiting at the edge per D-012);
    - `deliver.ts` (provider adapter; server-side failure log or persisted copy).
 2. `quote-form.tsx`:
    - `useActionState`;
