@@ -24,7 +24,11 @@ export const StickyHeader = () => {
           animate={{ y: 0 }}
           exit={{ y: -100 }}
           transition={{ duration: 0.4, ease: "easeInOut" }}
-          className="fixed top-0 left-0 z-50 w-full shadow-lg"
+          // width-before-scroll-bar: Radix scroll-lock (Select, Sheet) hides the
+          // scrollbar and pads <body>; this class gives the fixed header the same
+          // compensation so it does not jump. inset-x-0 (not w-full) lets the
+          // margin shrink it.
+          className="width-before-scroll-bar fixed inset-x-0 top-0 z-50 shadow-lg"
         >
           <Header isSticky />
         </motion.div>
