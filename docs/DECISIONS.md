@@ -171,3 +171,33 @@ Format: **ID — title** · date · status · who decided, followed by the decis
   - they added about 9 MB of binary history per UI change;
   - they kept being invalidated by in-progress UI work.
 - **Instead:** the e2e and axe suites guard behaviour and accessibility, and UI changes get a manual screenshot review at 390, 768 and 1440 px before each phase PR.
+
+### D-014 — Final fixes phase: implementation choices
+
+2026-10-10 · Proposed (pending owner review of the phase PR) · Claude
+
+- **shadcn components re-synced with upstream.** `components/ui` was replaced with today's official new-york-v4 registry versions (unified `radix-ui` imports). The only local customisation is a full-strength focus ring (`ring-ring` instead of `ring-ring/50`, A3). Accordion and Carousel were added from the same registry.
+- **Navigation:**
+  - native `#anchor` links with CSS smooth scrolling and `scroll-padding-top`;
+  - an IntersectionObserver hook for the active link (`aria-current`);
+  - one CSS-sticky header instead of a static header plus a fixed duplicate.
+  This replaces react-scroll.
+- **Testimonials:** an Embla carousel with **no autoplay**, which satisfies WCAG 2.2.2 without a pause control. It replaces Swiper.
+- **Stats:** a small motion count-up; the final values render on the server and when motion is reduced. It replaces react-countup.
+- **Dark mode (D-003):**
+  - semantic `--inverse` / `--on-inverse` tokens for always-dark surfaces (header, footer, stats, mobile menu);
+  - a single light/dark toggle button in the header, defaulting to light (the owner asked for no "system" option);
+  - focus rings use brand yellow on the inverse surfaces, so they are visible in both themes;
+  - axe reports 0 violations in both themes, and the e2e a11y test scans both.
+- **Images:** the hero and portfolio sources were re-encoded with sharp (`scripts/optimize-images.mjs`); the hero went from 7.6 MB to 363 KB. The hero now uses a preloaded `next/image` instead of a CSS background.
+- **Fonts:** DM Sans as a variable font; Barlow limited to weights 400–800.
+- **Removed:** react-scroll, @types/react-scroll, react-countup, swiper, sonner, the four `@radix-ui/react-*` packages, and unused assets.
+- **Deferred (not done in this phase):**
+  - next 16.4 / React 19.3 (wait for 16.4.1+);
+  - motion 13/14, and `LazyMotion`;
+  - dropping ESLint (when Biome's `useReactCompiler` is stable);
+  - About section still starts at opacity 0 (motion) without JS; `not-found` is still a client component;
+  - Services tabs keyboard orientation (arrow keys follow the horizontal default);
+  - zod-validated content modules, removal of unused `sidebar-*`/`chart-*` tokens, linting `components/ui`;
+  - package name (`construction-1`) and LICENSE (owner decision);
+  - privacy page and real content (owner).
