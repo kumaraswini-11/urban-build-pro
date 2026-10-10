@@ -17,7 +17,7 @@ export const Services = () => {
       <div className="container mx-auto px-4">
         <div className="mx-auto mb-16 max-w-[540px] text-center">
           <Pretitle text="Our Expertise" center />
-          <h2 className="h2 text-foreground mb-4">Construction Solutions</h2>
+          <h2 className="h2 mb-4 text-foreground">Construction Solutions</h2>
           <p className="text-foreground">
             Delivering <strong>precision-engineered</strong> results across
             every phase of the build cycle.
@@ -38,7 +38,7 @@ export const Services = () => {
                   "relative flex h-24 items-center justify-start px-0 transition-all",
                   activeTab === service.name
                     ? "border-primary bg-background shadow-lg"
-                    : "bg-background/50 border-border/40",
+                    : "border-border/40 bg-background/50",
                 )}
               >
                 <div
@@ -51,14 +51,14 @@ export const Services = () => {
                 >
                   <service.icon className="text-3xl" />
                 </div>
-                <span className="ml-6 text-xs font-bold tracking-widest uppercase">
+                <span className="ml-6 font-bold text-xs uppercase tracking-widest">
                   {service.name}
                 </span>
               </TabsTrigger>
             ))}
           </TabsList>
 
-          <div className="bg-background flex-1 rounded-sm p-8 shadow-xl md:p-12">
+          <div className="flex-1 rounded-sm bg-background p-8 shadow-xl md:p-12">
             {services.map((service) => (
               <TabsContent
                 key={service.name}
@@ -86,16 +86,16 @@ export const Services = () => {
                   </div>
                   <div className="flex-1">
                     <h3 className="h3 mb-6">{service.title}</h3>
-                    <p className="text-muted-foreground mb-8 leading-relaxed">
+                    <p className="mb-8 text-muted-foreground leading-relaxed">
                       {service.description}
                     </p>
                     <ul className="mb-10 grid grid-cols-1 gap-x-6 gap-y-3 md:grid-cols-2">
                       {service.serviceList.map((item) => (
                         <li
                           key={item}
-                          className="text-foreground/70 flex items-center gap-3 text-sm font-semibold"
+                          className="flex items-center gap-3 font-semibold text-foreground/70 text-sm"
                         >
-                          <div className="bg-primary size-1.5 rotate-45" />{" "}
+                          <div className="size-1.5 rotate-45 bg-primary" />{" "}
                           {item}
                         </li>
                       ))}

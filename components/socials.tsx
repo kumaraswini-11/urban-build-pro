@@ -15,9 +15,9 @@ export const Socials = ({ containerStyles, iconStyles }: SocialsProps) => {
           rel="noopener noreferrer"
           aria-label={social.ariaLabel || social.name}
           className={cn(
-            "group border-border relative flex size-10 items-center justify-center rounded-md border bg-transparent transition-all duration-300",
+            "group relative flex size-10 items-center justify-center rounded-md border border-border bg-transparent transition-all duration-300",
             "hover:border-accent hover:bg-accent hover:text-accent-foreground",
-            "focus-visible:ring-ring focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none",
+            "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
             iconStyles,
           )}
         >

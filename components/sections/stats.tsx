@@ -22,7 +22,7 @@ export const Stats = () => {
               transition={{ duration: 0.6, delay: index * 0.1 }}
               className="flex flex-col items-center text-center xl:items-start xl:text-left"
             >
-              <div className="text-background flex items-baseline gap-1 text-5xl font-extrabold md:text-6xl">
+              <div className="flex items-baseline gap-1 font-extrabold text-5xl text-background md:text-6xl">
                 {isInView ? (
                   <CountUp end={stat.value} duration={2.5} />
                 ) : (
@@ -30,7 +30,7 @@ export const Stats = () => {
                 )}
                 <span className="text-background">{stat.suffix}</span>
               </div>
-              <p className="text-background/70 mt-2 max-w-45 text-sm font-medium tracking-wide uppercase">
+              <p className="mt-2 max-w-45 font-medium text-background/70 text-sm uppercase tracking-wide">
                 {stat.label}
               </p>
             </motion.div>

@@ -9,10 +9,10 @@ export const Contact = () => {
   return (
     <section id="contact" className="py-16 xl:py-32">
       <div className="container mx-auto px-4">
-        <div className="border-primary bg-background grid grid-cols-1 border-t-4 shadow-2xl xl:grid-cols-[400px_1fr]">
+        <div className="grid grid-cols-1 border-primary border-t-4 bg-background shadow-2xl xl:grid-cols-[400px_1fr]">
           {/* Info Sidebar */}
           <div className="border-border/30 bg-accent/10 p-10 xl:border-r">
-            <h4 className="h4 text-foreground mb-8">Contact Us</h4>
+            <h4 className="h4 mb-8 text-foreground">Contact Us</h4>
             <div className="space-y-10">
               <ContactInfoItem
                 icon={RiChat1Line}
@@ -33,8 +33,8 @@ export const Contact = () => {
                 detail={CONTACT_INFO.phone}
               />
             </div>
-            <div className="border-border/30 mt-12 border-t pt-8">
-              <p className="text-foreground mb-4 text-xs font-bold tracking-widest uppercase opacity-50">
+            <div className="mt-12 border-border/30 border-t pt-8">
+              <p className="mb-4 font-bold text-foreground text-xs uppercase tracking-widest opacity-50">
                 Follow our progress
               </p>
               <Socials
@@ -46,8 +46,8 @@ export const Contact = () => {
 
           {/* Form Area */}
           <div className="p-10 xl:p-16">
-            <h2 className="h2 text-foreground mb-4">Request A Quote</h2>
-            <p className="text-muted-foreground mb-10">
+            <h2 className="h2 mb-4 text-foreground">Request A Quote</h2>
+            <p className="mb-10 text-muted-foreground">
               Fill out the form below and our engineering team will contact you
               within 24 hours.
             </p>
@@ -71,15 +71,15 @@ const ContactInfoItem = ({
   detail: string;
 }) => (
   <div className="flex gap-4">
-    <div className="bg-primary/10 text-primary flex size-10 shrink-0 items-center justify-center rounded-md">
+    <div className="flex size-10 shrink-0 items-center justify-center rounded-md bg-primary/10 text-primary">
       <Icon className="text-xl" />
     </div>
     <div>
-      <h5 className="text-foreground text-lg leading-tight font-bold">
+      <h5 className="font-bold text-foreground text-lg leading-tight">
         {title}
       </h5>
-      <p className="text-muted-foreground mb-1 text-sm">{desc}</p>
-      <p className="text-foreground font-bold">{detail}</p>
+      <p className="mb-1 text-muted-foreground text-sm">{desc}</p>
+      <p className="font-bold text-foreground">{detail}</p>
     </div>
   </div>
 );

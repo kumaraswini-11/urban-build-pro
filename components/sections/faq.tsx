@@ -32,7 +32,7 @@ export const Faq = () => {
         {/* Header Text */}
         <div className="mx-auto mb-12 max-w-[540px] text-center xl:mb-20">
           <Pretitle text="Common Questions" center />
-          <h2 className="h2 text-foreground mb-4">
+          <h2 className="h2 mb-4 text-foreground">
             Got Questions? We&apos;ve Got You Covered
           </h2>
           <p className="text-muted-foreground">
@@ -49,7 +49,7 @@ export const Faq = () => {
           whileInView="visible"
           viewport={{ once: true, margin: "-100px" }}
         >
-          <ul className="border-border/30 flex flex-col border-t">
+          <ul className="flex flex-col border-border/30 border-t">
             {FAQ.map((item) => (
               <motion.li
                 key={item.question}

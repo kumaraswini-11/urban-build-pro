@@ -24,14 +24,14 @@ export const ContactForm = () => {
           name="name"
           placeholder="Full Name"
           required
-          className="focus:border-primary text-foreground border-border h-14 rounded-none"
+          className="h-14 rounded-none border-border text-foreground focus:border-primary"
         />
         <Input
           name="email"
           type="email"
           placeholder="Email Address"
           required
-          className="focus:border-primary text-foreground border-border h-14 rounded-none"
+          className="h-14 rounded-none border-border text-foreground focus:border-primary"
         />
       </div>
 
@@ -39,10 +39,10 @@ export const ContactForm = () => {
         <Input
           name="phone"
           placeholder="Phone Number"
-          className="focus:border-primary text-foreground border-border h-14 rounded-none"
+          className="h-14 rounded-none border-border text-foreground focus:border-primary"
         />
         <Select name="service">
-          <SelectTrigger className="focus:border-primary text-foreground border-border min-h-14 w-full rounded-none">
+          <SelectTrigger className="min-h-14 w-full rounded-none border-border text-foreground focus:border-primary">
             <SelectValue placeholder="Project Type" />
           </SelectTrigger>
           <SelectContent className="w-full">
@@ -57,7 +57,7 @@ export const ContactForm = () => {
       <Textarea
         name="message"
         placeholder="Tell us about your project..."
-        className="focus:border-primary text-foreground border-border min-h-[150px] resize-none rounded-none"
+        className="min-h-[150px] resize-none rounded-none border-border text-foreground focus:border-primary"
         required
       />
 

@@ -16,14 +16,14 @@ export const Pretitle = ({ text, center, className }: PretitleProps) => {
       )}
     >
       {/* Left Marker */}
-      <div className="bg-primary size-2 shrink-0 rotate-45" />
+      <div className="size-2 shrink-0 rotate-45 bg-primary" />
 
-      <span className="text-foreground/80 text-xs font-semibold tracking-[3px] uppercase md:text-sm">
+      <span className="font-semibold text-foreground/80 text-xs uppercase tracking-[3px] md:text-sm">
         {text}
       </span>
 
       {/* Right Marker - only shown if centered or specifically needed */}
-      {center && <div className="bg-primary size-2 shrink-0 rotate-45" />}
+      {center && <div className="size-2 shrink-0 rotate-45 bg-primary" />}
     </div>
   );
 };

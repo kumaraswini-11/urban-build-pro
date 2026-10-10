@@ -21,8 +21,8 @@ export const NavItem = ({ link, isLast, onClick }: NavItemProps) => {
         offset={-70}
         activeClass="text-foreground after:scale-x-100"
         className={cn(
-          "hover:text-primary text-background relative cursor-pointer text-[13px] font-bold tracking-[2px] uppercase transition-colors",
-          "after:bg-foreground after:absolute after:-bottom-1 after:left-0 after:h-0.5 after:w-full after:origin-left after:scale-x-0 after:transition-transform after:duration-300",
+          "relative cursor-pointer font-bold text-[13px] text-background uppercase tracking-[2px] transition-colors hover:text-primary",
+          "after:absolute after:-bottom-1 after:left-0 after:h-0.5 after:w-full after:origin-left after:scale-x-0 after:bg-foreground after:transition-transform after:duration-300",
         )}
         onClick={onClick}
       >
@@ -30,7 +30,7 @@ export const NavItem = ({ link, isLast, onClick }: NavItemProps) => {
       </ScrollLink>
       {!isLast && (
         <span
-          className="text-background/20 mx-2 hidden xl:block"
+          className="mx-2 hidden text-background/20 xl:block"
           aria-hidden="true"
         >
           /

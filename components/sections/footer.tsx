@@ -18,13 +18,13 @@ export const Footer = () => {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="bg-foreground border-primary mt-16 border-t-6 xl:mt-32">
+    <footer className="mt-16 border-primary border-t-6 bg-foreground xl:mt-32">
       <div className="container mx-auto px-4">
         <div className="flex flex-col gap-12 py-16 xl:flex-row xl:gap-24 xl:py-24">
           {/* Brand Identity */}
           <div className="flex-1 space-y-6">
             <Logo />
-            <p className="text-muted-foreground max-w-sm leading-relaxed">
+            <p className="max-w-sm text-muted-foreground leading-relaxed">
               Leading the way in modern urban construction. We combine
               engineering precision with sustainable practices to build the
               future of our cities.
@@ -33,28 +33,28 @@ export const Footer = () => {
 
           {/* Contact Details */}
           <div className="flex-1">
-            <h4 className="font-barlow text-background mb-8 text-xl font-bold tracking-widest uppercase">
+            <h4 className="mb-8 font-barlow font-bold text-background text-xl uppercase tracking-widest">
               Contact Us
             </h4>
-            <ul className="text-muted-foreground space-y-5">
+            <ul className="space-y-5 text-muted-foreground">
               <li className="flex items-start gap-4">
-                <RiMapPin2Fill className="text-primary mt-1 shrink-0 text-xl" />
+                <RiMapPin2Fill className="mt-1 shrink-0 text-primary text-xl" />
                 <address className="not-italic">{CONTACT_INFO.address}</address>
               </li>
               <li className="group flex items-center gap-4">
-                <RiPhoneFill className="text-primary shrink-0 text-xl" />
+                <RiPhoneFill className="shrink-0 text-primary text-xl" />
                 <Link
                   href={`tel:${CONTACT_INFO.phone}`}
-                  className="hover:text-primary transition-colors"
+                  className="transition-colors hover:text-primary"
                 >
                   {CONTACT_INFO.phone}
                 </Link>
               </li>
               <li className="group flex items-center gap-4">
-                <RiMailFill className="text-primary shrink-0 text-xl" />
+                <RiMailFill className="shrink-0 text-primary text-xl" />
                 <Link
                   href={`mailto:${CONTACT_INFO.email}`}
-                  className="hover:text-primary lowercase transition-colors"
+                  className="lowercase transition-colors hover:text-primary"
                 >
                   {CONTACT_INFO.email}
                 </Link>
@@ -64,10 +64,10 @@ export const Footer = () => {
 
           {/* Newsletter Subscription */}
           <div className="flex-1">
-            <h4 className="font-barlow text-background mb-8 text-xl font-bold tracking-widest uppercase">
+            <h4 className="mb-8 font-barlow font-bold text-background text-xl uppercase tracking-widest">
               Newsletter
             </h4>
-            <p className="text-muted-foreground mb-6">
+            <p className="mb-6 text-muted-foreground">
               Stay updated with our latest project milestones and industry
               insights.
             </p>
@@ -75,14 +75,14 @@ export const Footer = () => {
               <Input
                 type="email"
                 placeholder="Your email address"
-                className="focus-visible:ring-primary text-background bg-accent/5 h-14 w-full rounded-none border-none pr-16 pl-6 shadow-xl focus-visible:ring-1"
+                className="h-14 w-full rounded-none border-none bg-accent/5 pr-16 pl-6 text-background shadow-xl focus-visible:ring-1 focus-visible:ring-primary"
                 required
               />
               <Button
                 type="submit"
                 variant="secondary"
                 size="icon"
-                className="bg-primary text-foreground hover:bg-primary/85 absolute top-1 right-1 bottom-1 h-12 w-12 rounded-none transition-all"
+                className="absolute top-1 right-1 bottom-1 h-12 w-12 rounded-none bg-primary text-foreground transition-all hover:bg-primary/85"
               >
                 <RiArrowRightLine className="text-xl" />
               </Button>
@@ -91,10 +91,10 @@ export const Footer = () => {
         </div>
 
         {/* Legal & Socials */}
-        <div className="border-border/10 flex flex-col items-center justify-between gap-6 border-t py-10 xl:flex-row">
+        <div className="flex flex-col items-center justify-between gap-6 border-border/10 border-t py-10 xl:flex-row">
           <p className="text-accent/60 text-sm">
             © {currentYear}{" "}
-            <span className="text-background font-medium">UrbanBuild</span>.
+            <span className="font-medium text-background">UrbanBuild</span>.
             Designed for Excellence. All rights reserved.
           </p>
           <Socials

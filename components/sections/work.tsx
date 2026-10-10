@@ -13,9 +13,9 @@ export const Work = () => {
   return (
     <section className="py-16 xl:py-32" id="work">
       <div className="container mx-auto px-4">
-        <div className="mx-auto mb-16 max-w-[540px] text-center xl:mb-20">
+        <div className="mx-auto mb-16 max-w-135 text-center xl:mb-20">
           <Pretitle text="Our Portfolio" center />
-          <h2 className="h2 text-foreground mb-4">
+          <h2 className="h2 mb-4 text-foreground">
             Crafting Iconic Structures
           </h2>
           <p className="text-muted-foreground">
@@ -32,7 +32,7 @@ export const Work = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: index * 0.1 }}
-              className="group bg-primary relative h-[500px] overflow-hidden"
+              className="group relative h-[500px] overflow-hidden bg-primary"
             >
               <Image
                 src={project.img}
@@ -42,13 +42,13 @@ export const Work = () => {
               />
 
               {/* Hover Overlay Content */}
-              <div className="bg-background text-foreground absolute inset-x-4 bottom-4 translate-y-[110%] p-6 transition-transform duration-500 group-hover:translate-y-0">
+              <div className="absolute inset-x-4 bottom-4 translate-y-[110%] bg-background p-6 text-foreground transition-transform duration-500 group-hover:translate-y-0">
                 <div className="flex items-center justify-between gap-1">
                   <div>
-                    <h3 className="font-barlow text-xl font-bold tracking-wider uppercase">
+                    <h3 className="font-barlow font-bold text-xl uppercase tracking-wider">
                       {project.name}
                     </h3>
-                    <div className="text-foreground mt-2 flex items-center gap-2 text-sm">
+                    <div className="mt-2 flex items-center gap-2 text-foreground text-sm">
                       <RiCheckboxCircleFill />
                       <span className="text-foreground/80">
                         {project.description}

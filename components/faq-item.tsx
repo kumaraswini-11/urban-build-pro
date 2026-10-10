@@ -25,7 +25,7 @@ export const FaqItem = ({ title, description }: FaqItemProps) => {
       >
         <span
           className={cn(
-            "text-lg font-bold tracking-tight uppercase transition-colors duration-300",
+            "font-bold text-lg uppercase tracking-tight transition-colors duration-300",
             isOpen
               ? "text-foreground"
               : "text-foreground group-hover:text-foreground/65",
@@ -37,7 +37,7 @@ export const FaqItem = ({ title, description }: FaqItemProps) => {
           className={cn(
             "flex size-8 items-center justify-center transition-all duration-300",
             isOpen
-              ? "bg-background text-foreground rotate-180"
+              ? "rotate-180 bg-background text-foreground"
               : "bg-primary text-foreground",
           )}
         >
@@ -54,7 +54,7 @@ export const FaqItem = ({ title, description }: FaqItemProps) => {
             transition={{ duration: 0.3, ease: "easeInOut" }}
             className="overflow-hidden"
           >
-            <p className="text-muted-foreground max-w-[90%] pt-4 leading-relaxed">
+            <p className="max-w-[90%] pt-4 text-muted-foreground leading-relaxed">
               {description}
             </p>
           </motion.div>
