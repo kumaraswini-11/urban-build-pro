@@ -2,7 +2,8 @@ import "server-only";
 
 import { createHash } from "node:crypto";
 
-import { type QuoteInput, SERVICE_OPTIONS } from "./schema";
+import { SERVICE_OPTIONS } from "./constants";
+import type { QuoteInput } from "./schema";
 
 export type DeliveryResult =
   | { ok: true; id?: string }

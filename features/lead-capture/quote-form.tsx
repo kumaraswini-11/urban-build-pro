@@ -20,7 +20,7 @@ import {
   initialQuoteFormState,
   type QuoteField,
   SERVICE_OPTIONS,
-} from "./schema";
+} from "./constants";
 
 const fieldClass =
   "h-14 rounded-none border-border text-foreground focus:border-primary";

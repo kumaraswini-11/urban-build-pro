@@ -1,11 +1,6 @@
 import { z } from "zod";
 
-export const SERVICE_OPTIONS = [
-  { value: "residential", label: "Residential Build" },
-  { value: "commercial", label: "Commercial Development" },
-  { value: "renovation", label: "Renovation & Retrofit" },
-  { value: "consultation", label: "Project Consultation" },
-] as const;
+import { type QuoteField, SERVICE_OPTIONS } from "./constants";
 
 const serviceValues = SERVICE_OPTIONS.map((option) => option.value) as [
   (typeof SERVICE_OPTIONS)[number]["value"],
@@ -51,23 +46,13 @@ export const quoteSchema = z.object({
     .max(2000, "Please keep your message under 2,000 characters."),
 });
 
-/** Hidden spam trap. Named to avoid browser/password-manager autofill. */
-export const HONEYPOT_FIELD = "hp_ref";
-
 export type QuoteInput = z.infer<typeof quoteSchema>;
-export type QuoteField = keyof QuoteInput;
 
-export type QuoteFormState = {
-  status: "idle" | "success" | "error";
-  message?: string;
-  fieldErrors?: Partial<Record<QuoteField, string>>;
-  /** Submitted values, echoed back so the form keeps them after an error. */
-  fields?: Partial<Record<QuoteField, string>>;
-  /** Increments on every submission; used to reset the form after success. */
-  attempt: number;
-};
-
-export const initialQuoteFormState: QuoteFormState = {
-  status: "idle",
-  attempt: 0,
-};
+// Compile-time guard: QuoteField (constants.ts) must list exactly the
+// schema's keys. A mismatch fails typecheck here.
+type FieldsMatch = [keyof QuoteInput] extends [QuoteField]
+  ? [QuoteField] extends [keyof QuoteInput]
+    ? true
+    : never
+  : never;
+export const quoteFieldsMatch: FieldsMatch = true;

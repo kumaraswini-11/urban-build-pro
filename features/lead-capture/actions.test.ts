@@ -1,8 +1,8 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
 import { submitQuote } from "./actions";
+import { HONEYPOT_FIELD, initialQuoteFormState } from "./constants";
 import { deliverLead } from "./deliver";
-import { HONEYPOT_FIELD, initialQuoteFormState } from "./schema";
 
 vi.mock("./deliver", () => ({ deliverLead: vi.fn() }));
 const deliverMock = vi.mocked(deliverLead);

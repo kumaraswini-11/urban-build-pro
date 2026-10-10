@@ -2,13 +2,13 @@
 
 import { CONTACT_INFO } from "@/lib/constants";
 
-import { deliverLead } from "./deliver";
 import {
   HONEYPOT_FIELD,
   type QuoteField,
   type QuoteFormState,
-  quoteSchema,
-} from "./schema";
+} from "./constants";
+import { deliverLead } from "./deliver";
+import { quoteSchema } from "./schema";
 
 const FIELDS: QuoteField[] = ["name", "email", "phone", "service", "message"];
 
