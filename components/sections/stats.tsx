@@ -16,7 +16,7 @@ export const Stats = () => {
         <div className="grid grid-cols-1 gap-12 sm:grid-cols-2 xl:grid-cols-4">
           {statistics.map((stat, index) => (
             <motion.div
-              key={index}
+              key={stat.label}
               initial={{ opacity: 0, y: 20 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.6, delay: index * 0.1 }}

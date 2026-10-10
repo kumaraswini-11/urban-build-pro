@@ -18,7 +18,6 @@ export const Header: React.FC<HeaderProps> = ({ isSticky }) => {
     <header
       id="home"
       className={cn("bg-foreground w-full", isSticky ? "py-2" : "py-0")}
-      aria-label="Main navigation"
     >
       <div className="container mx-auto flex h-16 items-center px-4">
         <div className="flex w-full items-center justify-between">

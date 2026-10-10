@@ -50,9 +50,9 @@ export const Faq = () => {
           viewport={{ once: true, margin: "-100px" }}
         >
           <ul className="border-border/30 flex flex-col border-t">
-            {FAQ.map((item, index) => (
+            {FAQ.map((item) => (
               <motion.li
-                key={index}
+                key={item.question}
                 variants={itemVariants}
                 className="border-border/30 border-b"
               >

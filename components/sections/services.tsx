@@ -67,9 +67,9 @@ export const Services = () => {
               >
                 <div className="flex flex-col gap-10 lg:flex-row">
                   <div className="flex flex-row gap-4 lg:flex-col">
-                    {service.images.slice(0, 2).map((image, idx) => (
+                    {service.images.slice(0, 2).map((image) => (
                       <div
-                        key={idx}
+                        key={image.url}
                         className={cn(
                           "relative aspect-square h-[140px] w-[140px] overflow-hidden rounded-sm xl:h-[200px] xl:w-[200px]",
                           "grayscale transition-all duration-500 hover:grayscale-0",
@@ -90,9 +90,9 @@ export const Services = () => {
                       {service.description}
                     </p>
                     <ul className="mb-10 grid grid-cols-1 gap-x-6 gap-y-3 md:grid-cols-2">
-                      {service.serviceList.map((item, i) => (
+                      {service.serviceList.map((item) => (
                         <li
-                          key={i}
+                          key={item}
                           className="text-foreground/70 flex items-center gap-3 text-sm font-semibold"
                         >
                           <div className="bg-primary size-1.5 rotate-45" />{" "}
