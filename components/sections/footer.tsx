@@ -1,17 +1,10 @@
 "use client";
 
 import Link from "next/link";
-import {
-  RiArrowRightLine,
-  RiMailFill,
-  RiMapPin2Fill,
-  RiPhoneFill,
-} from "react-icons/ri";
+import { RiMailFill, RiMapPin2Fill, RiPhoneFill } from "react-icons/ri";
 
 import { Logo } from "@/components/logo";
 import { Socials } from "@/components/socials";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import { CONTACT_INFO } from "@/lib/constants";
 
 export const Footer = () => {
@@ -60,33 +53,6 @@ export const Footer = () => {
                 </Link>
               </li>
             </ul>
-          </div>
-
-          {/* Newsletter Subscription */}
-          <div className="flex-1">
-            <h4 className="mb-8 font-barlow font-bold text-background text-xl uppercase tracking-widest">
-              Newsletter
-            </h4>
-            <p className="mb-6 text-muted-foreground">
-              Stay updated with our latest project milestones and industry
-              insights.
-            </p>
-            <form className="group relative">
-              <Input
-                type="email"
-                placeholder="Your email address"
-                className="h-14 w-full rounded-none border-none bg-accent/5 pr-16 pl-6 text-background shadow-xl focus-visible:ring-1 focus-visible:ring-primary"
-                required
-              />
-              <Button
-                type="submit"
-                variant="secondary"
-                size="icon"
-                className="absolute top-1 right-1 bottom-1 h-12 w-12 rounded-none bg-primary text-foreground transition-all hover:bg-primary/85"
-              >
-                <RiArrowRightLine className="text-xl" />
-              </Button>
-            </form>
           </div>
         </div>
 
