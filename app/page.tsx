@@ -6,31 +6,28 @@ import { Header } from "@/components/sections/header";
 import { Hero } from "@/components/sections/hero";
 import { Services } from "@/components/sections/services";
 import { Stats } from "@/components/sections/stats";
-import { StickyHeader } from "@/components/sections/sticky-header";
 import { Testimonials } from "@/components/sections/testimonials";
 import { Topbar } from "@/components/sections/topbar";
 import { Work } from "@/components/sections/work";
 
 export default function Home() {
   return (
-    <main className="relative flex min-h-screen flex-col">
+    <>
+      {/* Site chrome lives outside <main> so header/footer keep their
+          banner/contentinfo landmark roles (A6). */}
       <Topbar />
-
-      {/* Static Header for initial load */}
       <Header />
-
-      {/* Client-side Sticky Header handles the scroll logic independently */}
-      <StickyHeader />
-
-      <Hero />
-      <About />
-      <Stats />
-      <Services />
-      <Work />
-      <Testimonials />
-      <Faq />
-      <Contact />
+      <main id="main" className="relative flex min-h-screen flex-col">
+        <Hero />
+        <About />
+        <Stats />
+        <Services />
+        <Work />
+        <Testimonials />
+        <Faq />
+        <Contact />
+      </main>
       <Footer />
-    </main>
+    </>
   );
 }

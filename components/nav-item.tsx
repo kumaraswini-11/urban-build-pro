@@ -1,6 +1,4 @@
-"use client";
-
-import { Link as ScrollLink } from "react-scroll";
+import type { MouseEvent } from "react";
 
 import type { NavLink } from "@/lib/types";
 import { cn } from "@/lib/utils";
@@ -8,32 +6,37 @@ import { cn } from "@/lib/utils";
 interface NavItemProps {
   link: NavLink;
   isLast: boolean;
-  onClick?: () => void; // For closing mobile menu
+  isActive: boolean;
+  /** Used by the mobile menu to close the sheet before scrolling. */
+  onNavigate?: (event: MouseEvent<HTMLAnchorElement>, id: string) => void;
 }
 
-export const NavItem = ({ link, isLast, onClick }: NavItemProps) => {
+export const NavItem = ({
+  link,
+  isLast,
+  isActive,
+  onNavigate,
+}: NavItemProps) => {
   return (
     <li className="flex items-center">
-      <ScrollLink
-        to={link.path}
-        smooth
-        spy
-        offset={-70}
-        // react-scroll appends activeClass as a raw string, so style it with
-        // higher-specificity [&.active] variants instead of competing classes.
-        activeClass="active"
+      {/* Native anchors: keyboard-reachable and work without JavaScript (U1). */}
+      <a
+        href={`#${link.path}`}
+        aria-current={isActive ? "true" : undefined}
+        onClick={
+          onNavigate ? (event) => onNavigate(event, link.path) : undefined
+        }
         className={cn(
-          "relative cursor-pointer font-bold text-[13px] text-background uppercase tracking-[2px] transition-colors hover:text-primary",
+          "relative font-bold text-[13px] text-on-inverse uppercase tracking-[2px] transition-colors hover:text-primary",
           "after:absolute after:-bottom-1 after:left-0 after:h-0.5 after:w-full after:origin-left after:scale-x-0 after:bg-primary after:transition-transform after:duration-300",
-          "[&.active]:text-primary [&.active]:after:scale-x-100",
+          isActive && "text-primary after:scale-x-100",
         )}
-        onClick={onClick}
       >
         {link.label}
-      </ScrollLink>
+      </a>
       {!isLast && (
         <span
-          className="mx-2 hidden text-background/20 xl:block"
+          className="mx-2 hidden text-on-inverse/20 xl:block"
           aria-hidden="true"
         >
           /

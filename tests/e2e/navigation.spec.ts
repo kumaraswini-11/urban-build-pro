@@ -8,9 +8,8 @@ test.describe("desktop navigation", () => {
   test.skip(({ viewport }) => (viewport?.width ?? 0) < 1280, "desktop nav");
 
   test("every nav link scrolls its section into view", async ({ page }) => {
-    test.fail(true, "U2: Portfolio targets a missing #projects section");
     await page.goto("/", { waitUntil: "networkidle" });
-    const nav = page.getByRole("navigation", { name: "Desktop navigation" });
+    const nav = page.getByRole("navigation", { name: "Main navigation" });
 
     for (const label of ["About Us", "Services", "Portfolio", "Contact"]) {
       await page.evaluate(() => window.scrollTo(0, 0));
@@ -26,7 +25,7 @@ test.describe("desktop navigation", () => {
     page,
   }) => {
     await page.goto("/", { waitUntil: "networkidle" });
-    const nav = page.getByRole("navigation", { name: "Desktop navigation" });
+    const nav = page.getByRole("navigation", { name: "Main navigation" });
     await nav.getByText("About Us", { exact: true }).click();
     await page.waitForTimeout(1500);
     // Keep the pointer off the nav so hover styles can't mask a regression.
@@ -39,10 +38,10 @@ test.describe("desktop navigation", () => {
       document.body.append(probe);
       const primary = getComputedStyle(probe).color;
       probe.remove();
-      // Both the static and the sticky header carry the active link.
+      // One sticky header; the active link is marked with aria-current.
       const links = [
         ...document.querySelectorAll(
-          'nav[aria-label="Desktop navigation"] .active',
+          'nav[aria-label="Main navigation"] [aria-current="true"]',
         ),
       ].map((link) => ({
         text: link.textContent,
@@ -65,7 +64,6 @@ test.describe("desktop navigation", () => {
   });
 
   test("nav links are reachable with the keyboard", async ({ page }) => {
-    test.fail(true, "U1: react-scroll links render without href");
     await page.goto("/", { waitUntil: "networkidle" });
 
     const focused = new Set<string>();
@@ -84,7 +82,6 @@ test.describe("desktop navigation", () => {
   test("header 'Get a quote' takes the visitor to the contact form", async ({
     page,
   }) => {
-    test.fail(true, "U4: CTA has no action");
     await page.goto("/", { waitUntil: "networkidle" });
 
     await page

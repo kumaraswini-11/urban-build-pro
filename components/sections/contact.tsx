@@ -12,34 +12,37 @@ export const Contact = () => {
         <div className="grid grid-cols-1 border-primary border-t-4 bg-background shadow-2xl xl:grid-cols-[400px_1fr]">
           {/* Info Sidebar */}
           <div className="border-border/30 bg-accent/10 p-10 xl:border-r">
-            <h4 className="h4 mb-8 text-foreground">Contact Us</h4>
+            <h2 className="h4 mb-8 text-foreground">Contact Us</h2>
             <div className="space-y-10">
               <ContactInfoItem
                 icon={RiChat1Line}
-                title="Chat to us"
-                desc="Support team available 24/7"
+                title="Email us"
+                desc="We reply within one business day"
                 detail={CONTACT_INFO.email}
+                href={`mailto:${CONTACT_INFO.email}`}
               />
               <ContactInfoItem
                 icon={RiMapPin2Line}
                 title="Visit Us"
                 desc="Main HQ & Showroom"
                 detail={CONTACT_INFO.address}
+                href={CONTACT_INFO.mapHref}
               />
               <ContactInfoItem
                 icon={RiSmartphoneLine}
                 title="Call Us"
                 desc="Mon-Fri, 9am - 6pm"
                 detail={CONTACT_INFO.phone}
+                href={CONTACT_INFO.phoneHref}
               />
             </div>
             <div className="mt-12 border-border/30 border-t pt-8">
-              <p className="mb-4 font-bold text-foreground text-xs uppercase tracking-widest opacity-50">
+              <p className="mb-4 font-bold text-muted-foreground text-xs uppercase tracking-widest">
                 Follow our progress
               </p>
               <Socials
                 containerStyles="gap-4"
-                iconStyles="size-10 text-foreground border-primary/30 hover:bg-primary/75 hover:text-background"
+                iconStyles="size-10 text-foreground border-primary/30 hover:bg-primary/75 hover:text-inverse"
               />
             </div>
           </div>
@@ -64,22 +67,32 @@ const ContactInfoItem = ({
   title,
   desc,
   detail,
+  href,
 }: {
   icon: IconType;
   title: string;
   desc: string;
   detail: string;
+  href: string;
 }) => (
   <div className="flex gap-4">
     <div className="flex size-10 shrink-0 items-center justify-center rounded-md bg-primary/10 text-primary">
-      <Icon className="text-xl" />
+      <Icon aria-hidden="true" className="text-xl" />
     </div>
     <div>
-      <h5 className="font-bold text-foreground text-lg leading-tight">
+      <h3 className="font-bold text-foreground text-lg leading-tight">
         {title}
-      </h5>
+      </h3>
       <p className="mb-1 text-muted-foreground text-sm">{desc}</p>
-      <p className="font-bold text-foreground">{detail}</p>
+      <a
+        href={href}
+        className="font-bold text-foreground underline-offset-4 hover:underline"
+        {...(href.startsWith("http")
+          ? { target: "_blank", rel: "noopener noreferrer" }
+          : {})}
+      >
+        {detail}
+      </a>
     </div>
   </div>
 );
