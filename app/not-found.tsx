@@ -8,7 +8,10 @@ import { Button } from "@/components/ui/button";
 
 export default function NotFound() {
   return (
-    <main className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden bg-background px-4">
+    <main
+      id="main"
+      className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden bg-background px-4"
+    >
       {/* BLUEPRINT GRID PATTERN - Uses CSS linear-gradients to create a technical architectural grid linked to your border color variable. */}
       <div
         className="pointer-events-none absolute inset-0 z-0 opacity-[0.15]"
@@ -57,7 +60,7 @@ export default function NotFound() {
           transition={{ delay: 0.3 }}
           className="mx-auto mt-6 max-w-lg"
         >
-          <h2 className="font-barlow font-bold text-2xl text-primary uppercase tracking-widest md:text-3xl">
+          <h2 className="font-barlow font-bold text-2xl text-foreground uppercase tracking-widest md:text-3xl">
             Area Restricted: Blueprint Missing
           </h2>
           <p className="mt-4 font-medium text-muted-foreground">
@@ -88,7 +91,7 @@ export default function NotFound() {
             variant="outline"
             size="lg"
             onClick={() => window.history.back()}
-            className="h-14 rounded-none border-2 border-primary bg-transparent px-10 font-bold text-base text-primary uppercase tracking-widest transition-all hover:bg-primary hover:text-white"
+            className="h-14 rounded-none border-2 border-primary bg-transparent px-10 font-bold text-base text-foreground uppercase tracking-widest transition-all hover:bg-primary hover:text-inverse"
           >
             <RiArrowLeftLine className="size-4" />
             Previous Zone

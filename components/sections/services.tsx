@@ -13,7 +13,7 @@ export const Services = () => {
   const [activeTab, setActiveTab] = useState(services[0]?.name);
 
   return (
-    <section id="services" className="bg-slate-50/50 py-16 xl:py-32">
+    <section id="services" className="bg-muted/50 py-16 xl:py-32">
       <div className="container mx-auto px-4">
         <div className="mx-auto mb-16 max-w-[540px] text-center">
           <Pretitle text="Our Expertise" center />
@@ -27,9 +27,9 @@ export const Services = () => {
         <Tabs
           defaultValue={services[0]?.name}
           onValueChange={setActiveTab}
-          className="flex flex-col gap-10 xl:flex-row"
+          className="flex flex-col gap-10 xl:flex-row xl:data-[orientation=horizontal]:flex-row"
         >
-          <TabsList className="grid h-full w-full grid-cols-1 gap-4 bg-transparent p-0 md:grid-cols-2 xl:w-[350px] xl:grid-cols-1">
+          <TabsList className="grid h-full w-full grid-cols-1 gap-4 bg-transparent p-0 group-data-[orientation=horizontal]/tabs:h-auto md:grid-cols-2 xl:w-[350px] xl:grid-cols-1">
             {services.map((service) => (
               <TabsTrigger
                 key={service.name}
@@ -45,11 +45,11 @@ export const Services = () => {
                   className={cn(
                     "flex size-24 items-center justify-center transition-colors",
                     activeTab === service.name
-                      ? "bg-primary text-foreground"
+                      ? "bg-primary text-inverse"
                       : "bg-primary/20 text-primary",
                   )}
                 >
-                  <service.icon className="text-3xl" />
+                  <service.icon className="size-8" />
                 </div>
                 <span className="ml-6 font-bold text-xs uppercase tracking-widest">
                   {service.name}
@@ -78,6 +78,7 @@ export const Services = () => {
                         <Image
                           src={image.url}
                           fill
+                          sizes="(min-width: 1280px) 200px, 140px"
                           alt={service.name}
                           className="object-cover"
                         />
@@ -100,7 +101,10 @@ export const Services = () => {
                         </li>
                       ))}
                     </ul>
-                    <ConstructionButton label="Service Details" />
+                    <ConstructionButton
+                      href="#contact"
+                      label="Request a quote"
+                    />
                   </div>
                 </div>
               </TabsContent>

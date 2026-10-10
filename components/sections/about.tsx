@@ -47,14 +47,7 @@ export const About = () => {
                 </div>
               </div>
 
-              <ConstructionButton
-                label="Get in touch"
-                onClick={() =>
-                  document
-                    .getElementById("contact")
-                    ?.scrollIntoView({ behavior: "smooth" })
-                }
-              />
+              <ConstructionButton href="#contact" label="Get in touch" />
             </div>
           </motion.div>
 

@@ -6,15 +6,15 @@ export const Logo = () => {
     <Link
       href="/"
       className="relative flex items-center transition-opacity hover:opacity-90"
-      aria-label="Home"
+      aria-label="UrbanBuild home"
     >
       <Image
         src="/assets/logo.svg"
         width={230}
         height={48}
-        alt="BuildMaster Construction Logo"
-        priority // Essential for LCP since it's in the header
-        className="h-8 w-auto md:h-12 dark:invert"
+        alt="UrbanBuild"
+        loading="eager"
+        className="h-8 w-auto md:h-12"
       />
     </Link>
   );

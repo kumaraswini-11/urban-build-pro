@@ -1,94 +1,57 @@
 "use client";
 
 import Image from "next/image";
-import { RiArrowLeftLine, RiArrowRightLine } from "react-icons/ri";
-import { Autoplay, Pagination } from "swiper/modules";
-import { Swiper, SwiperSlide, useSwiper } from "swiper/react";
 
-// Import Swiper styles
-import "swiper/css";
-import "swiper/css/pagination";
-
-import { Button } from "@/components/ui/button";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
 import { testimonials } from "@/lib/constants";
-import { cn } from "@/lib/utils";
 
-export const Slider: React.FC = () => {
+// shadcn Carousel (Embla) replaces Swiper: no autoplay, so nothing moves
+// without the user (WCAG 2.2.2), and large prev/next targets (2.5.8).
+export const Slider = () => {
   return (
-    <div className="relative w-full max-w-[630px]">
-      <Swiper
-        modules={[Pagination, Autoplay]}
-        autoplay={{ delay: 5000, disableOnInteraction: false }}
-        pagination={{ clickable: true, el: ".swiper-custom-pagination" }}
-        className={cn(
-          "h-[280px] w-full border-primary border-b-4 bg-background shadow-2xl md:h-[220px]",
-          "mySwiper",
-        )}
-        aria-live="polite"
-      >
+    <Carousel
+      opts={{ loop: true }}
+      aria-label="Client testimonials"
+      className="relative w-full"
+    >
+      <CarouselContent>
         {testimonials.map(({ id, text, name, image }) => (
-          <SwiperSlide key={id} role="group" className="bg-background">
-            <div className="flex h-full flex-col justify-center px-8 md:flex-row md:items-center md:gap-9 md:px-12">
-              {/* Avatar Image */}
-              <div className="relative mb-4 flex h-[70px] w-[70px] shrink-0 md:mb-0 xl:h-[90px] xl:w-[90px]">
+          <CarouselItem key={id}>
+            <figure className="flex flex-col gap-4 pt-2 pb-16">
+              <div className="relative flex size-[70px] shrink-0">
                 <Image
                   src={image}
                   fill
-                  className="rounded-none object-cover grayscale" // Sharp corners for construction feel
-                  alt={`${name} testimonial avatar`}
-                  quality={100}
+                  sizes="90px"
+                  className="rounded-none object-cover grayscale"
+                  alt=""
                 />
-                <div className="absolute -right-2 -bottom-2 -z-10 size-full border-2 border-primary" />
               </div>
-
-              {/* Text Content */}
               <div className="flex flex-1 flex-col gap-2">
-                <p className="text-muted-foreground italic leading-relaxed md:text-base">
+                <blockquote className="text-muted-foreground italic leading-relaxed md:text-base">
                   {text}
-                </p>
-                <div className="mt-2 flex items-center gap-3">
-                  <div className="h-px w-6 bg-primary" />
-                  <p className="font-barlow font-bold text-primary text-sm uppercase tracking-wider">
+                </blockquote>
+                <figcaption className="mt-2 flex items-center gap-3">
+                  <span aria-hidden="true" className="h-px w-6 bg-primary" />
+                  <span className="font-barlow font-bold text-foreground text-sm uppercase tracking-wider">
                     {name}
-                  </p>
-                </div>
+                  </span>
+                </figcaption>
               </div>
-            </div>
-          </SwiperSlide>
+            </figure>
+          </CarouselItem>
         ))}
-
-        {/* Custom Navigation */}
-        <SliderButton />
-      </Swiper>
-
-      {/* Hidden pagination for logic, or style it if needed */}
-      <div className="swiper-custom-pagination static! mt-4 flex justify-center gap-2" />
-    </div>
-  );
-};
-
-const SliderButton: React.FC = () => {
-  const swiper = useSwiper();
-  return (
-    <div className="absolute right-0 bottom-0 z-10 flex gap-2">
-      <Button
-        size="icon"
-        variant="ghost"
-        className="size-10 rounded-none bg-primary text-foreground transition-all"
-        onClick={() => swiper.slidePrev()}
-        aria-label="Previous slide"
-      >
-        <RiArrowLeftLine />
-      </Button>
-      <Button
-        size="icon"
-        variant="ghost"
-        className="size-10 rounded-none bg-primary text-foreground transition-all"
-        onClick={() => swiper.slideNext()}
-        aria-label="Next slide"
-      >
-        <RiArrowRightLine />
-      </Button>
-    </div>
+      </CarouselContent>
+      <div className="absolute right-0 bottom-0 flex gap-2">
+        <CarouselPrevious className="static size-10 translate-y-0 rounded-none border-0 bg-primary text-inverse hover:bg-primary/90" />
+        <CarouselNext className="static size-10 translate-y-0 rounded-none border-0 bg-primary text-inverse hover:bg-primary/90" />
+      </div>
+    </Carousel>
   );
 };

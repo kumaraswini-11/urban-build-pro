@@ -1,23 +1,22 @@
 import type { Metadata, Viewport } from "next";
 import { Barlow, DM_Sans } from "next/font/google";
 
+import { MotionProvider } from "@/components/motion-provider";
 import { ThemeProvider } from "@/components/theme-provider";
 import { siteUrl } from "@/lib/env";
 import "./globals.css";
 
-// Construction branding usually favors high-readability sans-serifs
+// DM Sans is a variable font: one file covers every weight (P4).
 const dmSans = DM_Sans({
   variable: "--font-dm-sans",
   subsets: ["latin"],
-  display: "swap", // Better performance
-  weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
 });
 
+// Barlow is static: load only the weights the UI uses (was 9 files).
 const barlow = Barlow({
   variable: "--font-barlow",
   subsets: ["latin"],
-  display: "swap",
-  weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
+  weight: ["400", "500", "600", "700", "800"],
 });
 
 export const viewport: Viewport = {
@@ -29,11 +28,11 @@ export const viewport: Viewport = {
 
 export const metadata: Metadata = {
   title: {
-    default: "Urban Builders | Premier General Contracting & Architecture",
-    template: "%s | Urban Builders",
+    default: "UrbanBuild | Premier General Contracting & Architecture",
+    template: "%s | UrbanBuild",
   },
   description:
-    "Building excellence through precision engineering and sustainable design. Urban Builders specializes in high-end residential, commercial developments, and industrial infrastructure projects.",
+    "Building excellence through precision engineering and sustainable design. UrbanBuild specializes in high-end residential, commercial developments, and industrial infrastructure projects.",
   keywords: [
     "General Contractor",
     "Commercial Construction",
@@ -41,38 +40,29 @@ export const metadata: Metadata = {
     "Architecture Design",
     "Civil Engineering",
     "Project Management",
-    "Urban Builders Portfolio",
+    "UrbanBuild Portfolio",
   ],
-  authors: [{ name: "Urban Builders", url: siteUrl }],
-  creator: "Urban Builders",
-  publisher: "Urban Builders",
+  authors: [{ name: "UrbanBuild", url: siteUrl }],
+  creator: "UrbanBuild",
+  publisher: "UrbanBuild",
 
   metadataBase: new URL(siteUrl),
   alternates: { canonical: "/" },
 
   openGraph: {
-    title: "Urban Builders | Engineering the Future",
+    title: "UrbanBuild | Engineering the Future",
     description:
       "Discover our award-winning portfolio of residential and commercial masterpieces.",
     url: "/",
-    siteName: "Urban Builders",
-    images: [
-      {
-        url: "/assets/logo.png",
-        width: 1200,
-        height: 630,
-        alt: "Urban Builders Construction Site Excellence",
-      },
-    ],
+    siteName: "UrbanBuild",
+    // Image comes from app/opengraph-image.tsx (real 1200x630).
     locale: "en_US",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Urban Builders",
+    title: "UrbanBuild",
     description: "Premier construction and architectural solutions.",
-    images: ["/assets/logo.png"],
-    creator: "@urbanbuilders",
   },
   robots: {
     index: true,
@@ -95,17 +85,22 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      suppressHydrationWarning // Prevents mismatches from browser extensions
-      className="scroll-smooth" // Native smooth scrolling for your nav links
+      suppressHydrationWarning // next-themes sets the theme class before hydration
+      data-scroll-behavior="smooth"
     >
       <body className={`${dmSans.variable} ${barlow.variable} antialiased`}>
         <ThemeProvider
           attribute="class"
           defaultTheme="light"
-          enableSystem
           disableTransitionOnChange
         >
-          {children}
+          <a
+            href="#main"
+            className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-100 focus:bg-primary focus:px-4 focus:py-3 focus:font-bold focus:text-inverse"
+          >
+            Skip to content
+          </a>
+          <MotionProvider>{children}</MotionProvider>
         </ThemeProvider>
       </body>
     </html>

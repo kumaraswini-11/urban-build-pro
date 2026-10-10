@@ -45,8 +45,8 @@
   --radius-3xl: calc(var(--radius) + 12px);
   --radius-4xl: calc(var(--radius) + 16px);
 
-  /* Background Image */
-  --background-image-hero: url("/assets/images/hero/bg.jpg");
+  --color-inverse: var(--inverse);
+  --color-on-inverse: var(--on-inverse);
 }
 
 :root {
@@ -62,13 +62,16 @@
   --secondary: oklch(0.967 0.001 286.375);
   --secondary-foreground: oklch(0.21 0.006 285.885);
   --muted: oklch(0.967 0.001 286.375);
-  --muted-foreground: oklch(0.552 0.016 285.938);
+  --muted-foreground: oklch(0.5 0.016 285.938);
   --accent: oklch(0.967 0.001 286.375);
   --accent-foreground: oklch(0.21 0.006 285.885);
   --destructive: oklch(0.577 0.245 27.325);
   --border: oklch(0.92 0.004 286.32);
   --input: oklch(0.92 0.004 286.32);
-  --ring: oklch(0.8466 0.1675 84.58);
+  --ring: oklch(0.1865 0.0044 264.46);
+  /* Always-dark surfaces (header, footer, stats, mobile menu) in both themes. */
+  --inverse: oklch(0.1865 0.0044 264.46);
+  --on-inverse: oklch(0.985 0 0);
   --chart-1: oklch(0.646 0.222 41.116);
   --chart-2: oklch(0.6 0.118 184.704);
   --chart-3: oklch(0.398 0.07 227.392);
@@ -102,7 +105,9 @@
   --destructive: oklch(0.704 0.191 22.216);
   --border: oklch(1 0 0 / 10%);
   --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.554 0.135 66.442);
+  --ring: oklch(0.8466 0.1675 84.58);
+  --inverse: oklch(0.13 0.004 264.46);
+  --on-inverse: oklch(0.985 0 0);
   --chart-1: oklch(0.488 0.243 264.376);
   --chart-2: oklch(0.696 0.17 162.48);
   --chart-3: oklch(0.769 0.188 70.08);
@@ -120,7 +125,20 @@
 
 @layer base {
   * {
-    @apply border-border outline-ring/50;
+    @apply border-border outline-ring;
+  }
+  /* Focus rings on always-dark surfaces use the brand yellow (B1). */
+  .bg-inverse {
+    --ring: var(--primary);
+  }
+  html {
+    /* Keep anchor targets and focused elements clear of the sticky header. */
+    scroll-padding-top: 6rem;
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    html {
+      scroll-behavior: smooth;
+    }
   }
   body {
     @apply font-barlow bg-background text-foreground transition-colors duration-300;
@@ -138,6 +156,34 @@
     cursor: pointer;
   }
   ::selection {
-    @apply bg-primary text-foreground;
+    @apply bg-primary text-inverse;
   }
+}
+
+/* Type scale for section headings (U5). */
+@utility h1 {
+  font-family: var(--font-dm-sans);
+  font-size: clamp(2rem, 1.4rem + 3vw, 4rem);
+  font-weight: 800;
+  line-height: 1.1;
+  text-transform: uppercase;
+}
+@utility h2 {
+  font-family: var(--font-dm-sans);
+  font-size: clamp(1.875rem, 1.5rem + 1.5vw, 3rem);
+  font-weight: 800;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+}
+@utility h3 {
+  font-family: var(--font-dm-sans);
+  font-size: clamp(1.375rem, 1.2rem + 0.75vw, 1.875rem);
+  font-weight: 700;
+  line-height: 1.25;
+}
+@utility h4 {
+  font-family: var(--font-dm-sans);
+  font-size: 1.25rem;
+  font-weight: 700;
+  line-height: 1.3;
 }

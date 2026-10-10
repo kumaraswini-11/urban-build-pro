@@ -1,5 +1,3 @@
-"use client";
-
 import Link from "next/link";
 import { RiMailFill, RiMapPin2Fill, RiPhoneFill } from "react-icons/ri";
 
@@ -11,13 +9,13 @@ export const Footer = () => {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="mt-16 border-primary border-t-6 bg-foreground xl:mt-32">
+    <footer className="mt-16 border-primary border-t-6 bg-inverse xl:mt-32">
       <div className="container mx-auto px-4">
         <div className="flex flex-col gap-12 py-16 xl:flex-row xl:gap-24 xl:py-24">
           {/* Brand Identity */}
           <div className="flex-1 space-y-6">
             <Logo />
-            <p className="max-w-sm text-muted-foreground leading-relaxed">
+            <p className="max-w-sm text-on-inverse/70 leading-relaxed">
               Leading the way in modern urban construction. We combine
               engineering precision with sustainable practices to build the
               future of our cities.
@@ -26,10 +24,10 @@ export const Footer = () => {
 
           {/* Contact Details */}
           <div className="flex-1">
-            <h4 className="mb-8 font-barlow font-bold text-background text-xl uppercase tracking-widest">
+            <h2 className="mb-8 font-barlow font-bold text-on-inverse text-xl uppercase tracking-widest">
               Contact Us
-            </h4>
-            <ul className="space-y-5 text-muted-foreground">
+            </h2>
+            <ul className="space-y-5 text-on-inverse/70">
               <li className="flex items-start gap-4">
                 <RiMapPin2Fill className="mt-1 shrink-0 text-primary text-xl" />
                 <address className="not-italic">{CONTACT_INFO.address}</address>
@@ -37,7 +35,7 @@ export const Footer = () => {
               <li className="group flex items-center gap-4">
                 <RiPhoneFill className="shrink-0 text-primary text-xl" />
                 <Link
-                  href={`tel:${CONTACT_INFO.phone}`}
+                  href={CONTACT_INFO.phoneHref}
                   className="transition-colors hover:text-primary"
                 >
                   {CONTACT_INFO.phone}
@@ -57,15 +55,15 @@ export const Footer = () => {
         </div>
 
         {/* Legal & Socials */}
-        <div className="flex flex-col items-center justify-between gap-6 border-border/10 border-t py-10 xl:flex-row">
-          <p className="text-accent/60 text-sm">
+        <div className="flex flex-col items-center justify-between gap-6 border-on-inverse/10 border-t py-10 xl:flex-row">
+          <p className="text-on-inverse/70 text-sm">
             © {currentYear}{" "}
-            <span className="font-medium text-background">UrbanBuild</span>.
+            <span className="font-medium text-on-inverse">UrbanBuild</span>.
             Designed for Excellence. All rights reserved.
           </p>
           <Socials
             containerStyles="flex gap-4"
-            iconStyles="size-10 border-primary/20 bg-foreground text-background hover:text-primary hover:bg-transparent hover:border-primary"
+            iconStyles="size-10 border-primary/20 bg-inverse text-on-inverse hover:text-primary hover:bg-transparent hover:border-primary"
           />
         </div>
       </div>
